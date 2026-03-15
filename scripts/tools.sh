@@ -11,6 +11,12 @@ mkdir -p tmp var
 
 case "$1" in
 
+"prep")
+  scripts/tools.sh install
+  go install github.com/"${VENDOR}"/auxilium@latest
+  go install github.com/"${VENDOR}"/goforma@latest
+  ;;
+
 "cmd")
   docker run --rm \
     --user $(id -u):$(id -g) \
