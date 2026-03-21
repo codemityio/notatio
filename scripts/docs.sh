@@ -127,7 +127,7 @@ case "$1" in
   for target in ${packages//,/ }; do
     paths+=" --path=cmd/${target}/README.md"
   done
-  notatio toc --document=README.md --header="Subcommands" --limiter-left="###" --limiter-right="##" \
+  notatio toc --document=README.md --header="Subcommands" --limiter-left="###" --limiter-right="###" \
     ext --summary-header="Summary" --summary-limiter-left="##" --summary-limiter-right="##" ${paths}
   packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
   paths=
@@ -138,6 +138,9 @@ case "$1" in
     ext --summary-header="Summary" --summary-limiter-left="##" --summary-limiter-right="##" ${paths}
   # command
   notatio coi --command="notatio --help" --document=README.md --header=Manual --limiter-left=### --limiter-right=###
+  # docker
+  notatio coi --command="docker run ${VENDOR}/notatio --help" \
+    --document=README.md --header=Docker --limiter-left=### --limiter-right=##
   # table of contents
   notatio toc --document=README.md --header="Table of contents" --limiter-right="## Summary" \
     int --start-from-level=1 --start-from-item=1
