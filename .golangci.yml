@@ -4,10 +4,10 @@ run:
   concurrency: 4
   timeout: 5m
   issues-exit-code: 2
-  tests: false
+  tests: true
   modules-download-mode: readonly
   allow-parallel-runners: true
-  go: '1.25'
+  go: '1.26'
 
 linters:
   default: none
@@ -188,6 +188,24 @@ linters:
           disabled: true
     nakedret:
       max-func-lines: 40
+  exclusions:
+    rules:
+      - linters:
+          - exhaustruct
+          - funlen
+          - dupl
+          - gochecknoglobals
+          - gocognit
+          - gocyclo
+          - cyclop
+          - maintidx
+          - wrapcheck
+          - ireturn
+          - testpackage
+          - paralleltest
+          - tparallel
+          - musttag
+        path: "_test\\.go"
 
 formatters:
   enable:

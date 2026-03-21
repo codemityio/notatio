@@ -16,8 +16,7 @@ COPY "pkg" "pkg"
 COPY "go.*" "."
 COPY "*.go" "."
 
-RUN mkdir -p bin \
-    && go build \
+RUN go build \
   -ldflags "\
 -X 'main.name=${NAME}' \
 -X 'main.version=${VERSION}' \
@@ -27,7 +26,7 @@ RUN mkdir -p bin \
 " -o bin/app . \
     && go clean -cache -modcache -testcache
 
-FROM ${VENDOR}/alpine:${BASE_IMAGE_VERSION} AS final
+FROM ${VENDOR}/graph:${BASE_IMAGE_VERSION} AS final
 
 WORKDIR /opt/app/bin
 
@@ -35,7 +34,8 @@ ENV PATH="/opt/app/bin:${PATH}"
 
 COPY --from=build /tmp/build/bin/app /opt/app/bin/app
 
-COPY entrypoint.sh /
+COPY "cmd/mermaid/puppeteer-config.json" "/usr/local/lib/puppeteer-config.json"
+COPY "entrypoint.sh" /
 
 RUN ["chmod", "+x", "/entrypoint.sh"]
 

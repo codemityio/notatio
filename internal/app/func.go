@@ -1,6 +1,9 @@
 package app
 
 import (
+	"fmt"
+	"os"
+	"os/exec"
 	"time"
 
 	"github.com/urfave/cli/v2"
@@ -36,4 +39,36 @@ func WithValues(
 
 		app.Compiled = parsedBuildTime
 	}
+}
+
+func CheckFileExists(ctx *cli.Context, path string, message string) error {
+	if _, err := os.Stat(path); err != nil {
+		if os.IsNotExist(err) {
+			if _, ee := fmt.Fprintln(ctx.App.Writer, message); ee != nil {
+				return fmt.Errorf("%w: %w", errWrite, ee)
+			}
+
+			return fmt.Errorf("%w: %w", errWrite, err)
+		}
+
+		if _, ee := fmt.Fprintln(ctx.App.Writer, err); ee != nil {
+			return fmt.Errorf("%w: %w", errWrite, ee)
+		}
+
+		return fmt.Errorf("%w: %w", errWrite, err)
+	}
+
+	return nil
+}
+
+func CheckCommand(ctx *cli.Context, cmd string, message string) error {
+	if _, e := exec.LookPath(cmd); e != nil {
+		if _, ee := fmt.Fprintln(ctx.App.Writer, message); ee != nil {
+			return fmt.Errorf("%w: %w", errWrite, ee)
+		}
+
+		return fmt.Errorf("%w: %w", errWrite, e)
+	}
+
+	return nil
 }

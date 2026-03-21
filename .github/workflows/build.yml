@@ -18,13 +18,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build
-        run: make build
-
-      - name: Tag
-        run: make tag
-
-      - name: Push
-        run: make push
+        run: make build push
 
       - name: Logout
         if: always()
