@@ -15,7 +15,7 @@
 
 ## Summary
 
-A tool that supports the creation of documentation and diagrams.
+A tool designed to streamline working with documentation and diagrams.
 
 ## Development
 
