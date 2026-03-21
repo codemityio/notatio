@@ -48,7 +48,7 @@ USAGE:
    notatio [global options] command [command options]
 
 VERSION:
-   v0.0.0
+   v0.0.2
 
 DESCRIPTION:
    A tool designed to streamline working with documentation and diagrams.
@@ -92,7 +92,7 @@ USAGE:
    notatio [global options] command [command options]
 
 VERSION:
-   v0.0.0
+   v0.0.2
 
 DESCRIPTION:
    A tool designed to streamline working with documentation and diagrams.
