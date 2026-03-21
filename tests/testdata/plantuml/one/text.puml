@@ -1,0 +1,6 @@
+@startuml
+Alice -> Bob: Hi Bob!
+Alice <- Bob: Hi!
+Alice <- Bob: What do you want?
+Alice -> Bob: Nothing, just wanted to say hi!
+@enduml

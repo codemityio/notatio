@@ -1,5 +1,24 @@
 #!/bin/bash
 
+check() {
+  local packages=$@
+  local missing_packages=()
+
+  for package in $packages; do
+    if ! command -v "$package" &>/dev/null; then
+      missing_packages+=("$package")
+    fi
+  done
+
+  if [ ${#missing_packages[@]} -gt 0 ]; then
+    for package in "${missing_packages[@]}"; do
+      echo "error: ${package} package required to work with the project is not installed..."
+    done
+
+    exit 1
+  fi
+}
+
 statan() {
   local path=$1
   local flag=$2

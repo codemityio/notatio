@@ -1,10 +1,11 @@
-module github.com/codemity/notatio
+module github.com/codemityio/notatio
 
-go 1.25.8
+go 1.26.1
 
 require (
 	github.com/stretchr/testify v1.11.1
 	github.com/urfave/cli/v2 v2.27.7
+	mvdan.cc/sh/v3 v3.13.0
 )
 
 require (

@@ -4,8 +4,8 @@ package main
 var (
 	name        = "notatio"
 	version     = ""
-	copyright   = "codemity"
-	authorName  = "codemity"
+	copyright   = "codemityio"
+	authorName  = "codemityio"
 	authorEmail = ""
 	buildTime   = ""
 )
