@@ -61,32 +61,53 @@ func action(ctx *cli.Context) error {
 	shellName := ctx.String("shell-name")
 	shellPromptPrefix := ctx.String("shell-prompt")
 	command := ctx.String("command")
+	output := ctx.String("output")
 
-	parts, err := shell.Fields(command, nil)
-	if err != nil {
-		return fmt.Errorf("%w: `%s` command: %w", errCommandParse, command, err)
+	if command != "" && output != "" {
+		return fmt.Errorf(
+			"%w: only one of the following flags is allowed at the same time: --command=%s, --output=%s",
+			errExclusiveFlags,
+			command,
+			output,
+		)
 	}
 
-	name := parts[0]
-	args := parts[1:]
+	switch {
+	case command != "":
+		parts, err := shell.Fields(command, nil)
+		if err != nil {
+			return fmt.Errorf("%w: `%s` command: %w", errCommandParse, command, err)
+		}
 
-	// #nosec G204
-	cmd := exec.CommandContext(ctx.Context, name, args...)
+		name := parts[0]
+		args := parts[1:]
 
-	var outBuffer bytes.Buffer
+		// #nosec G204
+		cmd := exec.CommandContext(ctx.Context, name, args...)
 
-	cmd.Stdout = &outBuffer
-	cmd.Stderr = &outBuffer
+		var outBuffer bytes.Buffer
 
-	if e := cmd.Run(); e != nil {
-		return fmt.Errorf("%w: `%s`: %w", errCommandExecute, command, e)
+		cmd.Stdout = &outBuffer
+		cmd.Stderr = &outBuffer
+
+		if e := cmd.Run(); e != nil {
+			return fmt.Errorf("%w: `%s`: %w", errCommandExecute, command, e)
+		}
+
+		output = outBuffer.String()
+	case output != "":
+	default:
+		return fmt.Errorf(
+			"%w: one of the following flags must be provided: --command, --output",
+			errExclusiveFlags,
+		)
 	}
 
 	if e := os.WriteFile(
 		document,
 		[]byte(rexp.ReplaceAllString(string(body), fmt.Sprintf(
 			"%s``` %s\n%s %s\n%s```\n\n",
-			coi, shellName, shellPromptPrefix, command, outBuffer.String(),
+			coi, shellName, shellPromptPrefix, command, output,
 		)+suffix)),
 		permsWrite,
 	); e != nil {

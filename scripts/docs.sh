@@ -69,7 +69,10 @@ case "$1" in
     notatio coi --command="${BASE_NAME} ${target} --help" --document="cmd/${target}/README.md" --header=Manual --limiter-left=## --limiter-right="## Usage"
     notatio toc --document="cmd/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## Summary" \
       int --start-from-level=1 --start-from-item=1
-    pandoc \
+    docker run --rm \
+      -v "${PWD}:${PWD}" \
+      -w "${PWD}" \
+      "${VENDOR}"/pandoc \
       --wrap=auto --columns=120 \
       --from=markdown-implicit_figures \
       --to=gfm --output="cmd/${target}/README.md" "cmd/${target}/README.md"
@@ -88,7 +91,10 @@ case "$1" in
     echo "pkg/${target}/..."
     notatio toc --document="pkg/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## Summary" \
       int --start-from-level=1 --start-from-item=1
-    pandoc \
+    docker run --rm \
+      -v "${PWD}:${PWD}" \
+      -w "${PWD}" \
+      "${VENDOR}"/pandoc \
       --wrap=auto --columns=120 \
       --from=markdown-implicit_figures \
       --to=gfm --output="pkg/${target}/README.md" "pkg/${target}/README.md"
@@ -137,14 +143,14 @@ case "$1" in
   notatio toc --document=README.md --header="Packages" --limiter-left="##" --limiter-right="##" \
     ext --summary-header="Summary" --summary-limiter-left="##" --summary-limiter-right="##" ${paths}
   # command
-  notatio coi --command="notatio --help" --document=README.md --header=Manual --limiter-left=### --limiter-right=###
-  # docker
-  notatio coi --command="docker run ${VENDOR}/notatio --help" \
-    --document=README.md --header=Docker --limiter-left=### --limiter-right=##
+  notatio coi --command="${BASE_NAME} --help" --document=README.md --header=Manual --limiter-left=### --limiter-right=###
   # table of contents
   notatio toc --document=README.md --header="Table of contents" --limiter-right="## Summary" \
     int --start-from-level=1 --start-from-item=1
-  pandoc \
+  docker run --rm \
+    -v "${PWD}:${PWD}" \
+    -w "${PWD}" \
+    "${VENDOR}"/pandoc \
     --wrap=auto --columns=120 \
     --from=markdown-implicit_figures \
     --to=gfm --output=README.md README.md

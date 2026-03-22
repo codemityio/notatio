@@ -15,5 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Check
+      - name: Add Go bin to PATH
+        run: echo "${HOME}/go/bin" >> ${GITHUB_PATH}
+
+      - name: Code
         run: make cmd COMMAND="make check"
+
+      - name: Docs
+        run: make prep docs diff

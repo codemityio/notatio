@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/urfave/cli/v2"
@@ -104,7 +105,7 @@ func generateExternalTOC(
 ) (string, error) {
 	toc := fmt.Sprintf("%s %s\n\n", prefix, header)
 
-	var builder strings.Builder
+	list := make([]string, 0, len(filePaths))
 
 	for _, path := range filePaths {
 		var err error
@@ -124,9 +125,7 @@ func generateExternalTOC(
 		title := matches[1] // captured title without the #
 
 		if summaryHeader == "" {
-			if _, e := fmt.Fprintf(&builder, "- [%s](%s)\n", title, path); e != nil {
-				return "", fmt.Errorf("%w: %w", errPrint, e)
-			}
+			list = append(list, fmt.Sprintf("- [%s](%s)\n", title, path))
 
 			continue
 		}
@@ -153,10 +152,18 @@ func generateExternalTOC(
 			section = matches[1] // the captured content
 		}
 
-		if _, e := fmt.Fprintf(&builder, "- [%s](%s) - %s\n",
-			title, path, strings.TrimSpace(strings.ReplaceAll(section, "\n", " "))); e != nil {
-			return "", fmt.Errorf("%w: %w", errPrint, e)
-		}
+		list = append(list, fmt.Sprintf(
+			"- [%s](%s) - %s\n",
+			title, path, strings.TrimSpace(strings.ReplaceAll(section, "\n", " "))),
+		)
+	}
+
+	sort.Strings(list)
+
+	var builder strings.Builder
+
+	for _, line := range list {
+		builder.WriteString(line)
 	}
 
 	toc += builder.String()

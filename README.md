@@ -74,46 +74,17 @@ COPYRIGHT:
 
 ### Subcommands
 
-- [`plantuml`](cmd/plantuml/README.md) - A tool to convert `puml` files to `svg`/`png` images.
-- [`toc`](cmd/toc/README.md) - A tool to generate table of contents section within a **Markdown** file from a list of
-  paths or headers found in a document.
 - [`coi`](cmd/coi/README.md) - A simple tool to generate document sections with provided command output.
 - [`graphviz`](cmd/graphviz/README.md) - A tool to convert `dot`/`gv` files to `svg`/`png` images.
 - [`mermaid`](cmd/mermaid/README.md) - A tool to convert `mmd` files to `svg`/`png` images.
+- [`plantuml`](cmd/plantuml/README.md) - A tool to convert `puml` files to `svg`/`png` images.
+- [`toc`](cmd/toc/README.md) - A tool to generate table of contents section within a **Markdown** file from a list of
+  paths or headers found in a document.
 
 ### Docker
 
 ``` bash
-$ docker run codemityio/notatio --help
-NAME:
-   notatio - A new cli application
-
-USAGE:
-   notatio [global options] command [command options]
-
-VERSION:
-   v0.0.2
-
-DESCRIPTION:
-   A tool designed to streamline working with documentation and diagrams.
-
-AUTHOR:
-   codemityio
-
-COMMANDS:
-   coi       
-   graphviz  
-   mermaid   
-   plantuml  
-   toc       
-   help, h   Shows a list of commands or help for one command
-
-GLOBAL OPTIONS:
-   --help, -h     show help
-   --version, -v  print the version
-
-COPYRIGHT:
-   codemityio
+$ docker run codemityio/notatio
 ```
 
 ## Packages
