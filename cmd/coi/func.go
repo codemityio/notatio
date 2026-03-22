@@ -93,6 +93,8 @@ func action(ctx *cli.Context) error {
 		if e := cmd.Run(); e != nil {
 			return fmt.Errorf("%w: `%s`: %w", errCommandExecute, command, e)
 		}
+
+		output = outBuffer.String()
 	case output != "":
 	default:
 		return fmt.Errorf(
