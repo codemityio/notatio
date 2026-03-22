@@ -84,36 +84,7 @@ COPYRIGHT:
 ### Docker
 
 ``` bash
-$ docker run codemityio/notatio --help
-NAME:
-   notatio - A new cli application
-
-USAGE:
-   notatio [global options] command [command options]
-
-VERSION:
-   v0.0.2
-
-DESCRIPTION:
-   A tool designed to streamline working with documentation and diagrams.
-
-AUTHOR:
-   codemityio
-
-COMMANDS:
-   coi       
-   graphviz  
-   mermaid   
-   plantuml  
-   toc       
-   help, h   Shows a list of commands or help for one command
-
-GLOBAL OPTIONS:
-   --help, -h     show help
-   --version, -v  print the version
-
-COPYRIGHT:
-   codemityio
+$ docker run codemityio/notatio
 ```
 
 ## Packages
