@@ -74,12 +74,12 @@ COPYRIGHT:
 
 ### Subcommands
 
-- [`plantuml`](cmd/plantuml/README.md) - A tool to convert `puml` files to `svg`/`png` images.
-- [`toc`](cmd/toc/README.md) - A tool to generate table of contents section within a **Markdown** file from a list of
-  paths or headers found in a document.
 - [`coi`](cmd/coi/README.md) - A simple tool to generate document sections with provided command output.
 - [`graphviz`](cmd/graphviz/README.md) - A tool to convert `dot`/`gv` files to `svg`/`png` images.
 - [`mermaid`](cmd/mermaid/README.md) - A tool to convert `mmd` files to `svg`/`png` images.
+- [`plantuml`](cmd/plantuml/README.md) - A tool to convert `puml` files to `svg`/`png` images.
+- [`toc`](cmd/toc/README.md) - A tool to generate table of contents section within a **Markdown** file from a list of
+  paths or headers found in a document.
 
 ### Docker
 
