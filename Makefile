@@ -19,7 +19,7 @@ version: ## Print the most recent version
 next: ## Create a new version (bump prerelease or patch)
 	@scripts/tools.sh next
 
-check: make prep gen fmt statan test cov diff cleanup ## Run all CI required targets
+check: prep gen fmt statan test cov diff cleanup ## Run all CI required targets
 
 ###########
 ## D E V ##
