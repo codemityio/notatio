@@ -7,7 +7,7 @@ import (
 
 var (
 	errPkg                     = errors.New("mermaid")
-	errWrite                   = errors.New("unable to write")
+	errWrite                   = fmt.Errorf("%w: unable to write", errPkg)
 	errInputPath               = fmt.Errorf("%w: input path", errPkg)
 	errInputPathEmpty          = fmt.Errorf("%w: input path empty", errPkg)
 	errUnsupportedOutputFormat = fmt.Errorf("%w: unsupported output format", errPkg)
