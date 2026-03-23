@@ -86,11 +86,14 @@ diff: ## Check diff to ensure this project consistency
 go: ## Build Go
 	@scripts/tools.sh go
 
-build: ## Build container image
-	@scripts/tools.sh build
-
 install: ## Install binary locally
 	@scripts/tools.sh install
+
+build: ## Build container image
+	@scripts/docker.sh build
+
+buildx: ## Build container multi platform images and push
+	@scripts/docker.sh buildx
 
 #################
 ## D O C K E R ##

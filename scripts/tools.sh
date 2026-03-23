@@ -171,18 +171,6 @@ EOF
 " -o bin/app .
   ;;
 
-"build")
-  docker image build \
-    --target=final \
-    --build-arg VENDOR \
-    --build-arg BASE_IMAGE_VERSION=latest \
-    --build-arg NAME="${BASE_NAME}" \
-    --build-arg VERSION="$(scripts/tools.sh version)" \
-    --build-arg BUILD_TIME="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
-    -t "${IMAGE_NAME}:latest" \
-    -f Dockerfile .
-  ;;
-
 "install")
   go install -ldflags "\
 -X 'main.name=${BASE_NAME}' \

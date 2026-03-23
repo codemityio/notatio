@@ -2,6 +2,12 @@ export SHELL:=/bin/bash
 
 default: test
 
+noop:
+	docker run --rm \
+		-w ${PWD} \
+		-v ${PWD}:${PWD} \
+		codemityio/notatio:latest plantuml --input-path=testdata/noop --output-format=svg
+
 test:
 	docker run --rm \
 		-w ${PWD} \
