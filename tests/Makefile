@@ -10,6 +10,10 @@ test:
 	docker run --rm \
 		-w ${PWD} \
 		-v ${PWD}:${PWD} \
+		codemityio/notatio:latest plantuml --input-path=testdata/plantuml/one/two --output-format=png --recursive
+	docker run --rm \
+		-w ${PWD} \
+		-v ${PWD}:${PWD} \
 		codemityio/notatio:latest plantuml --input-path=testdata/plantuml/text.puml --output-format=svg
 	docker run --rm \
 		-e INPUT_PATH=testdata/graphviz/input.dot \
