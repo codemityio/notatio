@@ -172,7 +172,8 @@ EOF
   ;;
 
 "build")
-  docker image build \
+  docker buildx build \
+    --platform linux/amd64,linux/arm64 \
     --target=final \
     --build-arg VENDOR \
     --build-arg BASE_IMAGE_VERSION=latest \

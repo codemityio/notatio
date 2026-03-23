@@ -48,14 +48,14 @@ func CheckFileExists(ctx *cli.Context, path string, message string) error {
 				return fmt.Errorf("%w: %w", errWrite, ee)
 			}
 
-			os.Exit(1)
+			return fmt.Errorf("%w: %w", errWrite, e)
 		}
 
 		if _, ee := fmt.Fprintln(ctx.App.Writer, e); ee != nil {
 			return fmt.Errorf("%w: %w", errWrite, ee)
 		}
 
-		os.Exit(1)
+		return fmt.Errorf("%w: %w", errWrite, e)
 	}
 
 	return nil
@@ -67,7 +67,7 @@ func CheckCommand(ctx *cli.Context, cmd string, message string) error {
 			return fmt.Errorf("%w: %w", errWrite, ee)
 		}
 
-		os.Exit(1)
+		return fmt.Errorf("%w: %w", errWrite, e)
 	}
 
 	return nil
