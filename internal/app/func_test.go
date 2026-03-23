@@ -95,7 +95,7 @@ func TestWithValues(t *testing.T) {
 func TestCheckFileExists(t *testing.T) {
 	tmpDir := t.TempDir()
 	existingFile := filepath.Join(tmpDir, "file.txt")
-	os.WriteFile(existingFile, []byte("content"), 0644)
+	os.WriteFile(existingFile, []byte("content"), 0o644)
 	nonExistingFile := filepath.Join(tmpDir, "missing.txt")
 
 	tests := []struct {
