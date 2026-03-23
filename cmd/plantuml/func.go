@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/codemityio/notatio/internal/app"
 	"github.com/urfave/cli/v2"
@@ -73,8 +74,12 @@ func iterate(
 		return fmt.Errorf("%w: failed to read directory: %w", errReadDir, err)
 	}
 
-	if e := generate(ctx, path, format, plantumlJarPath, plantumlLimitSize); e != nil {
-		return e
+	for _, item := range items {
+		if !item.IsDir() && strings.HasSuffix(item.Name(), ".puml") {
+			if e := generate(ctx, path, format, plantumlJarPath, plantumlLimitSize); e != nil {
+				return e
+			}
+		}
 	}
 
 	if !recurse {
