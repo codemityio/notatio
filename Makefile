@@ -7,7 +7,7 @@
 	@true
 
 default: # A default target to initiate interactive menu
-	@source scripts/func.sh && check "git docker go goimports gofumpt pandoc"
+	@source scripts/func.sh && check "git docker go goimports gofumpt"
 	@scripts/default.sh make
 
 help: ## Prints help for targets with comments
