@@ -204,6 +204,7 @@ linters:
           - testpackage
           - paralleltest
           - tparallel
+          - musttag
         path: "_test\\.go"
 
 formatters:
