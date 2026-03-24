@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/urfave/cli/v2"
 )
 
@@ -64,14 +65,30 @@ func TestWithValues(t *testing.T) {
 
 			if tt.expectPanic {
 				assert.Panics(t, func() {
-					opt := WithValues(tt.inputName, tt.inputDesc, tt.inputVer, tt.inputCopy, tt.authorName, tt.authorEmail, tt.buildTime)
+					opt := WithValues(
+						tt.inputName,
+						tt.inputDesc,
+						tt.inputVer,
+						tt.inputCopy,
+						tt.authorName,
+						tt.authorEmail,
+						tt.buildTime,
+					)
 					opt(appInstance)
 				})
 
 				return
 			}
 
-			opt := WithValues(tt.inputName, tt.inputDesc, tt.inputVer, tt.inputCopy, tt.authorName, tt.authorEmail, tt.buildTime)
+			opt := WithValues(
+				tt.inputName,
+				tt.inputDesc,
+				tt.inputVer,
+				tt.inputCopy,
+				tt.authorName,
+				tt.authorEmail,
+				tt.buildTime,
+			)
 			opt(appInstance)
 
 			// Assertions
@@ -79,7 +96,11 @@ func TestWithValues(t *testing.T) {
 			assert.Equal(t, tt.inputDesc, appInstance.Description)
 			assert.Equal(t, tt.inputVer, appInstance.Version)
 			assert.Equal(t, tt.inputCopy, appInstance.Copyright)
-			assert.Equal(t, []*cli.Author{{Name: tt.authorName, Email: tt.authorEmail}}, appInstance.Authors)
+			assert.Equal(
+				t,
+				[]*cli.Author{{Name: tt.authorName, Email: tt.authorEmail}},
+				appInstance.Authors,
+			)
 			assert.False(t, appInstance.HideVersion)
 
 			if tt.buildTime != "" {
@@ -95,7 +116,9 @@ func TestWithValues(t *testing.T) {
 func TestCheckFileExists(t *testing.T) {
 	tmpDir := t.TempDir()
 	existingFile := filepath.Join(tmpDir, "file.txt")
-	os.WriteFile(existingFile, []byte("content"), 0o644)
+
+	require.NoError(t, os.WriteFile(existingFile, []byte("content"), 0o644)) // #nosec G306
+
 	nonExistingFile := filepath.Join(tmpDir, "missing.txt")
 
 	tests := []struct {
@@ -129,7 +152,7 @@ func TestCheckFileExists(t *testing.T) {
 
 			err := CheckFileExists(ctx, tt.path, tt.message)
 
-			assert.ErrorIs(t, err, tt.wantErr)
+			require.ErrorIs(t, err, tt.wantErr)
 
 			assert.Contains(t, buf.String(), tt.message)
 		})
@@ -168,7 +191,7 @@ func TestCheckCommand(t *testing.T) {
 
 			err := CheckCommand(ctx, tt.cmd, tt.message)
 
-			assert.ErrorIs(t, err, tt.wantErr)
+			require.ErrorIs(t, err, tt.wantErr)
 
 			assert.Contains(t, buf.String(), tt.message)
 		})
