@@ -410,7 +410,11 @@ func TestIterate(t *testing.T) {
 			cliApp.Writer = buf
 			ctx := cli.NewContext(cliApp, flag.NewFlagSet("test", flag.ContinueOnError), nil)
 
-			assert.ErrorIs(t, iterate(ctx, rootDir, tt.format, puppeteerConfig, tt.recursive), tt.wantErr)
+			assert.ErrorIs(
+				t,
+				iterate(ctx, rootDir, tt.format, puppeteerConfig, tt.recursive),
+				tt.wantErr,
+			)
 
 			log := buf.String()
 			for _, sub := range tt.wantContains {
