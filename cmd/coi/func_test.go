@@ -188,7 +188,7 @@ func TestBefore(t *testing.T) {
 				flags["document"] = writeTempFile(t, tt.content)
 			}
 
-			assert.ErrorIs(t, before(newContext(t, flags)), tt.wantErr)
+			require.ErrorIs(t, before(newContext(t, flags)), tt.wantErr)
 
 			if tt.wantLimiterR != "" {
 				assert.Equal(t, tt.wantLimiterR, limiterR)
@@ -328,7 +328,7 @@ func TestAction(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			docPath, ctx := setupAction(t, tt.content, tt.flags)
 
-			assert.ErrorIs(t, action(ctx), tt.wantErr)
+			require.ErrorIs(t, action(ctx), tt.wantErr)
 
 			// #nosec G304
 			updated, err := os.ReadFile(docPath)

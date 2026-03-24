@@ -213,7 +213,7 @@ func TestAction(t *testing.T) {
 
 			buf := &bytes.Buffer{}
 
-			assert.ErrorIs(t, action(newContext(t, buf, tt.flags(t), tt.boolFlags)), tt.wantErr)
+			require.ErrorIs(t, action(newContext(t, buf, tt.flags(t), tt.boolFlags)), tt.wantErr)
 
 			log := buf.String()
 			for _, sub := range tt.wantContains {
@@ -362,7 +362,7 @@ func TestIterate(t *testing.T) {
 			cliApp.Writer = buf
 			ctx := cli.NewContext(cliApp, flag.NewFlagSet("test", flag.ContinueOnError), nil)
 
-			assert.ErrorIs(
+			require.ErrorIs(
 				t,
 				iterate(ctx, rootDir, tt.format, jarPath, "", tt.recursive),
 				tt.wantErr,
@@ -435,7 +435,7 @@ func TestGenerate(t *testing.T) {
 			cliApp.Writer = buf
 			ctx := cli.NewContext(cliApp, flag.NewFlagSet("test", flag.ContinueOnError), nil)
 
-			assert.ErrorIs(t, generate(ctx, inputPath, tt.format, jarPath, "8192"), tt.wantErr)
+			require.ErrorIs(t, generate(ctx, inputPath, tt.format, jarPath, "8192"), tt.wantErr)
 		})
 	}
 }

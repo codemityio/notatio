@@ -261,7 +261,7 @@ func TestGenerateInternalTOC(t *testing.T) {
 
 			got, err := generateInternalTOC(tt.startFromLevel, tt.startFromItem, "#", "TOC", path)
 
-			assert.ErrorIs(t, err, tt.wantErr)
+			require.ErrorIs(t, err, tt.wantErr)
 
 			for _, sub := range tt.wantContains {
 				assert.Contains(t, got, sub)
@@ -376,7 +376,7 @@ func TestGenerateExternalTOC(t *testing.T) {
 				tt.summaryLimR,
 			)
 
-			assert.ErrorIs(t, err, tt.wantErr)
+			require.ErrorIs(t, err, tt.wantErr)
 
 			for _, sub := range tt.wantContains {
 				assert.Contains(t, got, sub)
@@ -441,7 +441,7 @@ func TestInternal(t *testing.T) {
 			set.Int("start-from-item", tt.startFromItem, "")
 			ctx := cli.NewContext(cli.NewApp(), set, nil)
 
-			assert.ErrorIs(t, internal(ctx), tt.wantErr)
+			require.ErrorIs(t, internal(ctx), tt.wantErr)
 
 			updated, err := os.ReadFile(docPath) // #nosec G304
 			require.NoError(t, err)
@@ -503,7 +503,7 @@ func TestExternal(t *testing.T) {
 
 			ctx := newContext(t, strFlags, map[string][]string{"path": extPaths})
 
-			assert.ErrorIs(t, external(ctx), tt.wantErr)
+			require.ErrorIs(t, external(ctx), tt.wantErr)
 
 			updated, err := os.ReadFile(docPath) // #nosec G304
 			require.NoError(t, err)

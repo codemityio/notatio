@@ -226,7 +226,7 @@ func TestAction(t *testing.T) {
 				flags["input-path"] = tt.setup(t)
 			}
 
-			assert.ErrorIs(t, action(newContext(t, buf, flags, tt.boolFlags)), tt.wantErr)
+			require.ErrorIs(t, action(newContext(t, buf, flags, tt.boolFlags)), tt.wantErr)
 
 			log := buf.String()
 			for _, sub := range tt.wantContains {
@@ -384,7 +384,7 @@ func TestIterate(t *testing.T) {
 			cliApp.Writer = buf
 			ctx := cli.NewContext(cliApp, flag.NewFlagSet("test", flag.ContinueOnError), nil)
 
-			assert.ErrorIs(t, iterate(ctx, rootDir, tt.format, tt.recursive), tt.wantErr)
+			require.ErrorIs(t, iterate(ctx, rootDir, tt.format, tt.recursive), tt.wantErr)
 
 			log := buf.String()
 			for _, sub := range tt.wantContains {
@@ -476,7 +476,7 @@ func TestRunDot(t *testing.T) {
 			cliApp.Writer = buf
 			ctx := cli.NewContext(cliApp, flag.NewFlagSet("test", flag.ContinueOnError), nil)
 
-			assert.ErrorIs(t, runDot(ctx, inputPath, tt.format), tt.wantErr)
+			require.ErrorIs(t, runDot(ctx, inputPath, tt.format), tt.wantErr)
 
 			if tt.wantLogFrag != "" {
 				assert.Contains(t, buf.String(), tt.wantLogFrag)
