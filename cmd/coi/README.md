@@ -30,8 +30,8 @@ OPTIONS:
    --limiter-right value  string to use as a lookup limiter - empty will use end of file as a limit (default: "##")
    --shell-name value     shell name to use in the output (default: "bash")
    --shell-prompt value   shell prompt prefix to use in the output (default: "$")
-   --command value        command to execute (use it only if the -output flag is not provided)
-   --output value         output to inject (use it only if the --command flag is not provided)
+   --command value        command to execute (command execution is skipped if --output is also provided)
+   --output value         output to inject
    --help, -h             show help
 ```
 

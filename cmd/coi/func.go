@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
+	"strings"
 
 	"github.com/urfave/cli/v2"
 	"mvdan.cc/sh/v3/shell"
@@ -63,17 +64,8 @@ func action(ctx *cli.Context) error {
 	command := ctx.String("command")
 	output := ctx.String("output")
 
-	if command != "" && output != "" {
-		return fmt.Errorf(
-			"%w: only one of the following flags is allowed at the same time: --command=%s, --output=%s",
-			errExclusiveFlags,
-			command,
-			output,
-		)
-	}
-
 	switch {
-	case command != "":
+	case command != "" && output == "":
 		parts, err := shell.Fields(command, nil)
 		if err != nil {
 			return fmt.Errorf("%w: `%s` command: %w", errCommandParse, command, err)
@@ -106,8 +98,8 @@ func action(ctx *cli.Context) error {
 	if e := os.WriteFile(
 		document,
 		[]byte(rexp.ReplaceAllString(string(body), fmt.Sprintf(
-			"%s``` %s\n%s %s\n%s```\n\n",
-			coi, shellName, shellPromptPrefix, command, output,
+			"%s``` %s\n%s %s\n%s\n```\n\n",
+			coi, shellName, shellPromptPrefix, command, strings.TrimSpace(output),
 		)+suffix)),
 		permsWrite,
 	); e != nil {

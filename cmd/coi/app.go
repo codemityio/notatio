@@ -52,12 +52,12 @@ var App = cli.Command{ //nolint:exhaustruct
 		},
 		&cli.StringFlag{ //nolint:exhaustruct
 			Name:  "command",
-			Usage: "command to execute (use it only if the -output flag is not provided)",
+			Usage: "command to execute (command execution is skipped if --output is also provided)",
 			Value: "",
 		},
 		&cli.StringFlag{ //nolint:exhaustruct
 			Name:  "output",
-			Usage: "output to inject (use it only if the --command flag is not provided)",
+			Usage: "output to inject",
 			Value: "",
 		},
 	},

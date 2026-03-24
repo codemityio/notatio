@@ -38,6 +38,10 @@ COPY --from=build /tmp/build/bin/app /opt/app/bin/app
 COPY "cmd/mermaid/puppeteer-config.json" "/usr/local/lib/puppeteer-config.json"
 COPY "entrypoint.sh" /
 
+RUN adduser -D -h /home/commander -s /bin/bash commander
+
 RUN ["chmod", "+x", "/entrypoint.sh"]
+
+USER commander
 
 ENTRYPOINT ["/entrypoint.sh"]

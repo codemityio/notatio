@@ -72,7 +72,7 @@ case "$1" in
     docker run --rm \
       -v "${PWD}:${PWD}" \
       -w "${PWD}" \
-      "${VENDOR}"/pandoc \
+      "${VENDOR}"/pandoc:latest \
       --wrap=auto --columns=120 \
       --from=markdown-implicit_figures \
       --to=gfm --output="cmd/${target}/README.md" "cmd/${target}/README.md"
@@ -94,7 +94,7 @@ case "$1" in
     docker run --rm \
       -v "${PWD}:${PWD}" \
       -w "${PWD}" \
-      "${VENDOR}"/pandoc \
+      "${VENDOR}"/pandoc:latest \
       --wrap=auto --columns=120 \
       --from=markdown-implicit_figures \
       --to=gfm --output="pkg/${target}/README.md" "pkg/${target}/README.md"
@@ -150,7 +150,7 @@ case "$1" in
   docker run --rm \
     -v "${PWD}:${PWD}" \
     -w "${PWD}" \
-    "${VENDOR}"/pandoc \
+    "${VENDOR}"/pandoc:latest \
     --wrap=auto --columns=120 \
     --from=markdown-implicit_figures \
     --to=gfm --output=README.md README.md
