@@ -32,7 +32,9 @@ OPTIONS:
    --shell-prompt value   shell prompt prefix to use in the output (default: "$")
    --command value        command to execute (command execution is skipped if --output is also provided)
    --output value         output to inject
-   --help, -h             show help
+   --index value          index of a section to be used as a placeholder (useful if limiters refer to more than one section,
+      0 = replace all) (default: 0)
+   --help, -h  show help
 ```
 
 ## Usage

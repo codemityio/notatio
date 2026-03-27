@@ -40,7 +40,9 @@ OPTIONS:
    --header value         header to use for document lookups and generation
    --limiter-left value   string to use as a lookup limiter (default: "##")
    --limiter-right value  string to use as a lookup limiter - empty will use end of file as a limit (default: "##")
-   --help, -h             show help
+   --index value          index of a section to be used as a placeholder (useful if limiters refer to more than one section,
+      0 = replace all) (default: 0)
+   --help, -h  show help
 ```
 
 ## Usage
@@ -53,14 +55,6 @@ OPTIONS:
 ...
 
 ## Table of contents
-
-  - [Summary](#summary)
-  - [Manual](#manual)
-  - [Usage](#usage)
-  - [Example](#example)
-    - [Original Markdown file content](#original-markdown-file-content)
-    - [Command](#command)
-    - [Result Markdown file content](#result-markdown-file-content)
 
 ## Summary
 

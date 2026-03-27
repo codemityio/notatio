@@ -15,4 +15,5 @@ var (
 	errFileRead                = fmt.Errorf("%w: unable to read a directory", errPkg)
 	errMkdir                   = fmt.Errorf("%w: unable to make a directory", errPkg)
 	errCommandRun              = fmt.Errorf("%w: unable to run a command", errPkg)
+	errNromalise               = fmt.Errorf("%w: unable to normalise", errPkg)
 )

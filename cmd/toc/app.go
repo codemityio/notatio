@@ -40,6 +40,12 @@ var App = cli.Command{ //nolint:exhaustruct
 			Usage: "string to use as a lookup limiter - empty will use end of file as a limit",
 			Value: "##",
 		},
+		&cli.IntFlag{ //nolint:exhaustruct
+			Name: "index",
+			Usage: `index of a section to be used as a placeholder (useful if limiters refer to more than one section,
+0 = replace all)`,
+			Value: 0,
+		},
 	},
 	Subcommands: []*cli.Command{
 		{

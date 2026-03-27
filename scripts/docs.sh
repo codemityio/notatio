@@ -66,8 +66,12 @@ case "$1" in
   fi
   for target in ${targets//,/ }; do
     echo "cmd/${target}/..."
-    notatio coi --command="${BASE_NAME} ${target} --help" --document="cmd/${target}/README.md" --header=Manual --limiter-left=## --limiter-right="## Usage"
-    notatio toc --document="cmd/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## Summary" \
+    path="cmd/${target}/Makefile"
+    if [ -f "${path}" ]; then
+      make -C "$(dirname "${path}")" docs
+    fi
+    notatio coi --command="${BASE_NAME} ${target} --help" --document="cmd/${target}/README.md" --header="Manual" --limiter-left="##" --limiter-right="## "
+    notatio toc --document="cmd/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## Summary" --index=1 \
       int --start-from-level=1 --start-from-item=1
     docker run --rm \
       -v "${PWD}:${PWD}" \
@@ -89,7 +93,11 @@ case "$1" in
   fi
   for target in ${targets//,/ }; do
     echo "pkg/${target}/..."
-    notatio toc --document="pkg/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## Summary" \
+    path="pkg/${target}/Makefile"
+    if [ -f "${path}" ]; then
+      make -C "$(dirname "${path}")" docs
+    fi
+    notatio toc --document="pkg/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## " --index=1 \
       int --start-from-level=1 --start-from-item=1
     docker run --rm \
       -v "${PWD}:${PWD}" \
@@ -145,7 +153,7 @@ case "$1" in
   # command
   notatio coi --command="${BASE_NAME} --help" --document=README.md --header=Manual --limiter-left=### --limiter-right=###
   # table of contents
-  notatio toc --document=README.md --header="Table of contents" --limiter-right="## Summary" \
+  notatio toc --document=README.md --header="Table of contents" --limiter-right="## Summary" --index=1 \
     int --start-from-level=1 --start-from-item=1
   docker run --rm \
     -v "${PWD}:${PWD}" \
