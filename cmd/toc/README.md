@@ -5,10 +5,10 @@
 - [Summary](#summary)
 - [Manual](#manual)
 - [Usage](#usage)
-- [Example](#example)
-  - [Original Markdown file content](#original-markdown-file-content)
-  - [Command](#command)
-  - [Result Markdown file content](#result-markdown-file-content)
+  - [Example](#example)
+    - [Original Markdown file content](#original-markdown-file-content)
+    - [Command](#command)
+    - [Result Markdown file content](#result-markdown-file-content)
 
 ## Summary
 
@@ -47,9 +47,11 @@ OPTIONS:
 
 ## Usage
 
-## Example
+More coming soon…
 
-### Original Markdown file content
+### Example
+
+#### Original Markdown file content
 
 ``` markdown
 ...
@@ -61,7 +63,7 @@ OPTIONS:
 ...
 ```
 
-### Command
+#### Command
 
 The following command will take all provided paths and generate a list of links within a document.
 
@@ -69,7 +71,7 @@ The following command will take all provided paths and generate a list of links 
 notatio toc --document=README.md --header="Table of contents" --limiter-right=## ext --path=one/one.md --path=two/two.md
 ```
 
-### Result Markdown file content
+#### Result Markdown file content
 
 ``` markdown
 ...
