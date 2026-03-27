@@ -2,9 +2,11 @@ package graphviz
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/codemityio/notatio/internal/app"
@@ -124,6 +126,57 @@ func runDot(ctx *cli.Context, path, format string) error {
 
 	if e := cmd.Run(); e != nil {
 		return fmt.Errorf("%w: %w", errCommandRun, e)
+	}
+
+	if format == "svg" {
+		if e := normalizeSVG(outputPath, 0); e != nil {
+			return e
+		}
+	}
+
+	return nil
+}
+
+func roundFloatsInValue(val string, precision int) string {
+	scale := math.Pow(powBase, float64(precision))
+
+	return floatRegex.ReplaceAllStringFunc(val, func(match string) string {
+		f, err := strconv.ParseFloat(match, 64)
+		if err != nil {
+			return match
+		}
+
+		return strconv.FormatFloat(math.Round(f*scale)/scale, 'f', precision, 64)
+	})
+}
+
+func normalizeSVG(path string, precision int) error {
+	data, err := os.ReadFile(path) // #nosec G304
+	if err != nil {
+		return fmt.Errorf("%w: failed to read svg: %w", errNromalise, err)
+	}
+
+	normalised := coordAttrRegex.ReplaceAllFunc(data, func(match []byte) []byte {
+		// Extract the three capture groups: prefix, value, suffix
+		groups := coordAttrRegex.FindSubmatch(match)
+		if groups == nil {
+			return match
+		}
+
+		return []byte(
+			string(
+				groups[1],
+			) + roundFloatsInValue(
+				string(groups[2]),
+				precision,
+			) + string(
+				groups[3],
+			),
+		)
+	})
+
+	if e := os.WriteFile(path, normalised, permsFile); e != nil { // #nosec G306 G703
+		return fmt.Errorf("%w: %w", errWrite, e)
 	}
 
 	return nil

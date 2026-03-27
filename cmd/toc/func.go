@@ -11,11 +11,12 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func before(c *cli.Context) error {
-	document = c.String("document")
-	header = c.String("header")
-	limiterL = c.String("limiter-left")
-	limiterR = c.String("limiter-right")
+func before(ctx *cli.Context) error {
+	document = ctx.String("document")
+	header = ctx.String("header")
+	limiterL = ctx.String("limiter-left")
+	limiterR = ctx.String("limiter-right")
+	index = ctx.Int("index") // -1 or 0 means "replace all"
 
 	var err error
 
@@ -65,11 +66,19 @@ func internal(ctx *cli.Context) error {
 		return err
 	}
 
-	if e := os.WriteFile(
-		document,
-		[]byte(rexp.ReplaceAllString(string(body), content+suffix)),
-		permsWrite,
-	); e != nil {
+	matchCount := 0
+
+	replaced := rexp.ReplaceAllStringFunc(string(body), func(match string) string {
+		matchCount++
+
+		if index <= 0 || matchCount == index {
+			return content + suffix
+		}
+
+		return match
+	})
+
+	if e := os.WriteFile(document, []byte(replaced), permsWrite); e != nil {
 		return fmt.Errorf("%w: `%s`: %w", errFileWrite, document, e)
 	}
 
@@ -87,11 +96,19 @@ func external(c *cli.Context) error {
 		return err
 	}
 
-	if e := os.WriteFile(
-		document,
-		[]byte(rexp.ReplaceAllString(string(body), content+suffix)),
-		permsWrite,
-	); e != nil {
+	matchCount := 0
+
+	replaced := rexp.ReplaceAllStringFunc(string(body), func(match string) string {
+		matchCount++
+
+		if index <= 0 || matchCount == index {
+			return content + suffix
+		}
+
+		return match
+	})
+
+	if e := os.WriteFile(document, []byte(replaced), permsWrite); e != nil {
 		return fmt.Errorf("%w: `%s`: %w", errFileWrite, document, e)
 	}
 

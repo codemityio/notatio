@@ -60,6 +60,12 @@ var App = cli.Command{ //nolint:exhaustruct
 			Usage: "output to inject",
 			Value: "",
 		},
+		&cli.IntFlag{ //nolint:exhaustruct
+			Name: "index",
+			Usage: `index of a section to be used as a placeholder (useful if limiters refer to more than one section,
+0 = replace all)`,
+			Value: 0,
+		},
 	},
 	Subcommands: []*cli.Command{},
 }

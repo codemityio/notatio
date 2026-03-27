@@ -1,0 +1,42 @@
+digraph DepGraph {
+    fontname="Courier New"
+    splines="ortho"
+    nodesep="1.4"
+    ranksep="0.8"
+    graph [rankdir="TB", pad="0.2"]
+    node [shape="tab", fontname="Courier New", style="filled", fixedsize=false]
+    edge [fontname="Courier New", color="grey66", arrowhead="normal", arrowtail="none", arrowsize="0.6", weight="0.5"]
+    subgraph deps {
+        "github.com/danielgtaylor/huma/v2" [label="github.com/danielgtaylor/huma/v2", color="gray65", fillcolor="gray83", penwidth=1]
+              "github.com/danielgtaylor/huma/v2" -> "github.com/danielgtaylor/huma/v2/casing"
+              "github.com/danielgtaylor/huma/v2" -> "github.com/danielgtaylor/huma/v2/negotiation"
+              "github.com/danielgtaylor/huma/v2" -> "github.com/danielgtaylor/huma/v2/validation"
+              "github.com/danielgtaylor/huma/v2" -> "github.com/danielgtaylor/huma/v2/yaml"
+        "github.com/danielgtaylor/huma/v2/adapters/humachi" [label="github.com/danielgtaylor/huma/v2/adapters/humachi", color="gray65", fillcolor="gray83", penwidth=1]
+              "github.com/danielgtaylor/huma/v2/adapters/humachi" -> "github.com/danielgtaylor/huma/v2"
+              "github.com/danielgtaylor/huma/v2/adapters/humachi" -> "github.com/danielgtaylor/huma/v2/queryparam"
+              "github.com/danielgtaylor/huma/v2/adapters/humachi" -> "github.com/go-chi/chi/v5"
+        "github.com/danielgtaylor/huma/v2/casing" [label="github.com/danielgtaylor/huma/v2/casing", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/danielgtaylor/huma/v2/negotiation" [label="github.com/danielgtaylor/huma/v2/negotiation", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/danielgtaylor/huma/v2/queryparam" [label="github.com/danielgtaylor/huma/v2/queryparam", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/danielgtaylor/huma/v2/validation" [label="github.com/danielgtaylor/huma/v2/validation", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/danielgtaylor/huma/v2/yaml" [label="github.com/danielgtaylor/huma/v2/yaml", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/go-chi/chi/v5" [label="github.com/go-chi/chi/v5", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/sethvargo/go-envconfig" [label="github.com/sethvargo/go-envconfig", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/config" [label="github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/config", color="gray58", fillcolor="gray99", penwidth=1]
+        "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/example" [label="github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/example", color="gray58", fillcolor="gray99", penwidth=1]
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/example" -> "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/config"
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/example" -> "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/integration"
+        "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/huma" [label="github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/huma", color="gray58", fillcolor="gray99", penwidth=1]
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/huma" -> "github.com/danielgtaylor/huma/v2"
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/huma" -> "github.com/danielgtaylor/huma/v2/adapters/humachi"
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/huma" -> "github.com/go-chi/chi/v5"
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/huma" -> "github.com/sethvargo/go-envconfig"
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/huma" -> "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/integration"
+        "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/integration" [label="github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/integration", color="gray58", fillcolor="gray99", penwidth=1]
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/integration" -> "github.com/danielgtaylor/huma/v2"
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/integration" -> "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/config"
+        "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/local" [label="github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/local", color="gray58", fillcolor="gray99", penwidth=1]
+              "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/local" -> "github.com/codemityio/goforma/pkg/code/imports/testdata/pkg/config"
+    }
+}
