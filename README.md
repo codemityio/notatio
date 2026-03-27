@@ -1,6 +1,6 @@
 # ![Notatio](logo.jpg)
 
-![coverage-badge-do-not-edit](https://img.shields.io/badge/Coverage-85%25-green.svg?longCache=true&style=flat)
+![coverage-badge-do-not-edit](https://img.shields.io/badge/Coverage-86%25-green.svg?longCache=true&style=flat)
 
 ## Table of contents
 
