@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	"github.com/codemityio/notatio/internal/app"
@@ -76,7 +77,13 @@ func iterate(
 
 	for _, item := range items {
 		if !item.IsDir() && strings.HasSuffix(item.Name(), ".puml") {
-			if e := generate(ctx, path, format, plantumlJarPath, plantumlLimitSize); e != nil {
+			if e := generate(
+				ctx,
+				filepath.Join(path, item.Name()),
+				format,
+				plantumlJarPath,
+				plantumlLimitSize,
+			); e != nil {
 				return e
 			}
 		}
