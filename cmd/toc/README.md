@@ -4,8 +4,11 @@
 
 - [Summary](#summary)
 - [Manual](#manual)
+- [Subcommands](#subcommands)
+  - [`int`](#int)
+  - [`ext`](#ext)
 - [Usage](#usage)
-  - [Example](#example)
+  - [`int`](#int)
     - [Original Markdown file content](#original-markdown-file-content)
     - [Command](#command)
     - [Result Markdown file content](#result-markdown-file-content)
@@ -45,11 +48,47 @@ OPTIONS:
    --help, -h  show help
 ```
 
+## Subcommands
+
+### `int`
+
+``` bash
+$ notatio toc --document=README.md --header='Table of contents' int --help
+NAME:
+   notatio toc int - Generate table of content from headers within a document 
+                       e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" int.
+
+USAGE:
+   notatio toc int [command options]
+
+OPTIONS:
+   --start-from-level value  indicate what level of headers to start from (default: 0)
+   --start-from-item value   indicate what item from the list to start from (default: 0)
+   --help, -h                show help
+```
+
+### `ext`
+
+``` bash
+$ notatio toc --document=README.md --header='Table of contents' ext --help
+NAME:
+   notatio toc ext - Generate table of content within a document and use provided paths as a list 
+                       e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" ext --path=one/document.md --path=two/document.md.
+
+USAGE:
+   notatio toc ext [command options]
+
+OPTIONS:
+   --path value [ --path value ]  path to be included in the table of contents
+   --summary-header value         summary header to use for document lookups
+   --summary-limiter-left value   string to use as a summary lookup limiter (default: "##")
+   --summary-limiter-right value  string to use as a summary lookup limiter - empty will use end of file as a limit (default: "##")
+   --help, -h                     show help
+```
+
 ## Usage
 
-More coming soon…
-
-### Example
+### `int`
 
 #### Original Markdown file content
 
