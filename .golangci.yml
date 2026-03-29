@@ -205,6 +205,8 @@ linters:
           - paralleltest
           - tparallel
           - musttag
+          - err113
+          - gosec
         path: "_test\\.go"
 
 formatters:
