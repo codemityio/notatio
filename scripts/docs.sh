@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Note: the set [-/+] x is purely there to turn on and off outputting of the commands being executed.
 if [ "${DEBUG}" = "true" ]; then
   set -x

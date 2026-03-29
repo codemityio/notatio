@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source scripts/func.sh
 
 # Note: the set [-/+] x is purely there to turn on and off outputting of the commands being executed.
