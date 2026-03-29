@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/urfave/cli/v2"
-	"mvdan.cc/sh/v3/shell"
 )
 
 func before(ctx *cli.Context) error {
@@ -67,16 +66,8 @@ func action(ctx *cli.Context) error {
 
 	switch {
 	case command != "" && output == "":
-		parts, err := shell.Fields(command, nil)
-		if err != nil {
-			return fmt.Errorf("%w: `%s` command: %w", errCommandParse, command, err)
-		}
-
-		name := parts[0]
-		args := parts[1:]
-
 		// #nosec G204
-		cmd := exec.CommandContext(ctx.Context, name, args...)
+		cmd := exec.CommandContext(ctx.Context, "sh", "-c", command)
 
 		var outBuffer bytes.Buffer
 
@@ -87,8 +78,9 @@ func action(ctx *cli.Context) error {
 			return fmt.Errorf("%w: `%s`: %w", errCommandExecute, command, e)
 		}
 
-		output = outBuffer.String()
+		output = stripANSI(outBuffer.String())
 	case output != "":
+		output = stripANSI(output)
 	default:
 		return fmt.Errorf(
 			"%w: one of the following flags must be provided: --command, --output",
@@ -116,4 +108,8 @@ func action(ctx *cli.Context) error {
 	}
 
 	return nil
+}
+
+func stripANSI(s string) string {
+	return ansiEscape.ReplaceAllString(s, "")
 }

@@ -8,7 +8,6 @@ import (
 var (
 	errPkg                    = errors.New("toc")
 	errExclusiveFlags         = fmt.Errorf("%w: mutually exclusive flags", errPkg)
-	errCommandParse           = fmt.Errorf("%w: unable to parse a comand", errPkg)
 	errCommandExecute         = fmt.Errorf("%w: unable to execute a comand", errPkg)
 	errFileRead               = fmt.Errorf("%w: unable to read a file", errPkg)
 	errFileWrite              = fmt.Errorf("%w: unable to write a file", errPkg)
