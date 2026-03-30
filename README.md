@@ -6,7 +6,6 @@
 
 - [Summary](#summary)
 - [Development](#development)
-  - [`make`](#make)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Manual](#manual)
