@@ -55,10 +55,10 @@ gen: ## Go generate
 fmt: ## Format code
 	@scripts/tools.sh fmt
 
-statan: ## Analyze code
+statan: ## Analyse code
 	@scripts/tools.sh statan
 
-statan-fix: ## Analyze code and fix
+statan-fix: ## Analyse code and fix
 	@scripts/tools.sh statan-fix
 
 test: ## Run tests

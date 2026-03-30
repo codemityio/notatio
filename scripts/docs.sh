@@ -156,7 +156,6 @@ case "$1" in
   for target in ${packages//,/ }; do
     paths+=" --path=pkg/${target}/README.md"
   done
-  notatio coi --command="make help" --document=README.md --header="\`make\`" --limiter-left="###" --limiter-right="## " --index=1
   notatio toc --document=README.md --header="Packages" --limiter-left="##" --limiter-right="## " --index=1 \
     ext --summary-header="Summary" --summary-limiter-left="##" --summary-limiter-right="##" ${paths}
   # command
