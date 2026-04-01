@@ -208,6 +208,10 @@ linters:
           - err113
           - gosec
         path: "_test\\.go"
+    paths:
+      - tmp
+      - var
+      - bin
 
 formatters:
   enable:

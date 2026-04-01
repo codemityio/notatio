@@ -5,7 +5,7 @@ FROM ${VENDOR}/golang:${BASE_IMAGE_VERSION} AS build
 
 ARG VENDOR="vendor"
 ARG NAME="app"
-ARG VERSION="latest"
+ARG VERSION=""
 ARG BUILD_TIME=""
 
 WORKDIR /tmp/build

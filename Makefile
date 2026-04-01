@@ -95,9 +95,6 @@ build: ## Build container image
 buildx: ## Build container multi platform images and push
 	@scripts/docker.sh buildx
 
-push: ## Push image
-	@scripts/docker.sh push
-
 #############
 ## D O C S ##
 #############
