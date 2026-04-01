@@ -32,16 +32,9 @@ case "$1" in
     --build-arg VENDOR \
     --build-arg BASE_IMAGE_VERSION=latest \
     --build-arg NAME="${BASE_NAME}" \
-    --build-arg VERSION="$(scripts/tools.sh version)" \
     --build-arg BUILD_TIME="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
     -t "${IMAGE_NAME}:latest" \
-    -t "${IMAGE_NAME}:$(scripts/tools.sh version)" \
     -f Dockerfile .
-  ;;
-
-"push")
-  pushImage "${IMAGE_NAME}:latest"
-  pushImage "${IMAGE_NAME}:$(scripts/tools.sh version)"
   ;;
 
 *)
