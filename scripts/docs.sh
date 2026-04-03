@@ -181,7 +181,14 @@ case "$1" in
     -v "${PWD}:${PWD}" \
     -w "${PWD}" \
     "${VENDOR}"/golang-dev:latest go-licenses report ./... > tmp/licenses.csv
-  notatio tol --document-path=README.md --csv-path=tmp/licenses.csv --skip="github.com/${VENDOR}/${BASE_NAME}" --header="Licenses" --limiter-right="## License" --index=1
+  notatio tol \
+    --document-path=README.md \
+    --csv-path=tmp/licenses.csv \
+    --skip="github.com/${VENDOR}/${BASE_NAME}" \
+    --header="Licenses" \
+    --limiter-left="##" \
+    --limiter-right="## License" \
+    --index=1
   # table of contents
   notatio toc --document-path=README.md --header="Table of contents" --limiter-right="## Summary" --index=1 \
     int --start-from-level=1 --start-from-item=1
