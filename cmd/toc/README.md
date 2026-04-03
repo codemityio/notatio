@@ -33,13 +33,13 @@ DESCRIPTION:
 
 COMMANDS:
    int      Generate table of content from headers within a document 
-              e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" int.
+              e.g. toc --document-path=README.md --header="Table of contents" --limiter-right="##" int.
    ext      Generate table of content within a document and use provided paths as a list 
-              e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" ext --path=one/document.md --path=two/document.md.
+              e.g. toc --document-path=README.md --header="Table of contents" --limiter-right="##" ext --path=one/document.md --path=two/document.md.
    help, h  Shows a list of commands or help for one command
 
 OPTIONS:
-   --document value       markdown file path to be updated
+   --document-path value  markdown file path to be updated
    --header value         header to use for document lookups and generation
    --limiter-left value   string to use as a lookup limiter (default: "##")
    --limiter-right value  string to use as a lookup limiter - empty will use end of file as a limit (default: "##")
@@ -53,10 +53,10 @@ OPTIONS:
 ### `int`
 
 ``` bash
-$ notatio toc --document=README.md --header='Table of contents' int --help
+$ notatio toc --document-path=README.md --header='Table of contents' int --help
 NAME:
    notatio toc int - Generate table of content from headers within a document 
-                       e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" int.
+                       e.g. toc --document-path=README.md --header="Table of contents" --limiter-right="##" int.
 
 USAGE:
    notatio toc int [command options]
@@ -70,10 +70,10 @@ OPTIONS:
 ### `ext`
 
 ``` bash
-$ notatio toc --document=README.md --header='Table of contents' ext --help
+$ notatio toc --document-path=README.md --header='Table of contents' ext --help
 NAME:
    notatio toc ext - Generate table of content within a document and use provided paths as a list 
-                       e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" ext --path=one/document.md --path=two/document.md.
+                       e.g. toc --document-path=README.md --header="Table of contents" --limiter-right="##" ext --path=one/document.md --path=two/document.md.
 
 USAGE:
    notatio toc ext [command options]
@@ -107,7 +107,7 @@ OPTIONS:
 The following command will take all provided paths and generate a list of links within a document.
 
 ``` shell
-notatio toc --document=README.md --header="Table of contents" --limiter-right=## ext --path=one/one.md --path=two/two.md
+notatio toc --document-path=README.md --header="Table of contents" --limiter-right=## ext --path=one/one.md --path=two/two.md
 ```
 
 #### Result Markdown file content

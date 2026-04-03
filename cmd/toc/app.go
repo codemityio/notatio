@@ -21,7 +21,7 @@ var App = cli.Command{ //nolint:exhaustruct
 	OnUsageError: nil,
 	Flags: []cli.Flag{
 		&cli.StringFlag{ //nolint:exhaustruct
-			Name:     "document",
+			Name:     "document-path",
 			Usage:    "markdown file path to be updated",
 			Required: true,
 		},
@@ -51,7 +51,7 @@ var App = cli.Command{ //nolint:exhaustruct
 		{
 			Name: "int",
 			Usage: `Generate table of content from headers within a document 
-	e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" int.`,
+	e.g. toc --document-path=README.md --header="Table of contents" --limiter-right="##" int.`,
 			Flags: []cli.Flag{
 				&cli.IntFlag{ //nolint:exhaustruct
 					Name:     "start-from-level",
@@ -71,7 +71,7 @@ var App = cli.Command{ //nolint:exhaustruct
 		{
 			Name: "ext",
 			Usage: `Generate table of content within a document and use provided paths as a list 
-	e.g. toc --document=README.md --header="Table of contents" --limiter-right="##" ext --path=one/document.md --path=two/document.md.`,
+	e.g. toc --document-path=README.md --header="Table of contents" --limiter-right="##" ext --path=one/document.md --path=two/document.md.`,
 			Flags: []cli.Flag{
 				&cli.StringSliceFlag{ //nolint:exhaustruct
 					Name:  "path",

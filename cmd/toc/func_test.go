@@ -31,7 +31,7 @@ func newContext(
 
 	// Plain string flags.
 	for _, name := range []string{
-		"document", "header", "limiter-left", "limiter-right",
+		"document-path", "header", "limiter-left", "limiter-right",
 		"summary-header", "summary-limiter-left", "summary-limiter-right",
 	} {
 		set.String(name, "", "")
@@ -62,7 +62,7 @@ func newContext(
 	// The app flags list must mirror the set so cli.Context resolves names.
 	cliApp := cli.NewApp()
 	cliApp.Flags = []cli.Flag{
-		&cli.StringFlag{Name: "document"},
+		&cli.StringFlag{Name: "document-path"},
 		&cli.StringFlag{Name: "header"},
 		&cli.StringFlag{Name: "limiter-left"},
 		&cli.StringFlag{Name: "limiter-right"},
@@ -104,7 +104,7 @@ func writeTempFileNamed(t *testing.T, name, content string) string {
 
 // resetGlobals resets all package-level variables mutated by before().
 func resetGlobals() {
-	document = ""
+	documentPath = ""
 	header = ""
 	limiterL = ""
 	limiterR = ""
@@ -122,9 +122,9 @@ func setupBefore(t *testing.T, content, hdr, limL, limR string) string {
 	docPath := writeTempFile(t, content)
 
 	flags := map[string]string{
-		"document":     docPath,
-		"header":       hdr,
-		"limiter-left": limL,
+		"document-path": docPath,
+		"header":        hdr,
+		"limiter-left":  limL,
 	}
 	if limR != "" {
 		flags["limiter-right"] = limR
@@ -498,7 +498,7 @@ func TestExternal(t *testing.T) {
 				extPaths = append(extPaths, writeTempFileNamed(t, name, content))
 			}
 
-			strFlags := map[string]string{"document": docPath}
+			strFlags := map[string]string{"document-path": docPath}
 			maps.Copy(strFlags, tt.summaryFlags)
 
 			ctx := newContext(t, strFlags, map[string][]string{"path": extPaths})
