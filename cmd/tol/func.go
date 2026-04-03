@@ -67,6 +67,7 @@ func before(ctx *cli.Context) error {
 
 func readRecords(reader *csv.Reader) ([][]string, error) {
 	records := [][]string{{"Package", "Licence", "Type"}}
+	seen := make(map[string]struct{})
 
 	for {
 		record, err := reader.Read()
@@ -78,10 +79,19 @@ func readRecords(reader *csv.Reader) ([][]string, error) {
 			return nil, fmt.Errorf("%w: %w", errRead, err)
 		}
 
-		if len(record) > 0 && slices.Contains(skip, record[0]) {
+		if len(record) == 0 {
 			continue
 		}
 
+		if slices.Contains(skip, record[0]) {
+			continue
+		}
+
+		if _, exists := seen[record[0]]; exists {
+			continue
+		}
+
+		seen[record[0]] = struct{}{}
 		records = append(records, record)
 	}
 
@@ -178,8 +188,8 @@ func action(_ *cli.Context) error {
 		return match
 	})
 
-	if err := os.WriteFile(documentPath, []byte(replaced), permsWrite); err != nil {
-		return fmt.Errorf("%w: with a document path `%s`: %w", errFileWrite, documentPath, err)
+	if e := os.WriteFile(documentPath, []byte(replaced), permsWrite); e != nil {
+		return fmt.Errorf("%w: with a document path `%s`: %w", errFileWrite, documentPath, e)
 	}
 
 	return nil

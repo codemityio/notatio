@@ -244,6 +244,7 @@ pkg/skip-me,https://example.com/skip/LICENSE,BSD-2-Clause`
 	tests := []struct {
 		name         string
 		docContent   string
+		csvContent   string // empty means use the shared csvContent constant
 		skip         []string
 		index        int
 		wantErr      error
@@ -302,13 +303,32 @@ pkg/skip-me,https://example.com/skip/LICENSE,BSD-2-Clause`
 				"BSD-2-Clause",
 			},
 		},
+		{
+			name:       "duplicate packages appear only once",
+			docContent: "## Licenses\n\nold content\n\n## Next\n",
+			csvContent: `pkg/a,https://example.com/a/LICENSE,MIT
+pkg/b,https://example.com/b/LICENSE,Apache-2.0
+pkg/a,https://example.com/a/LICENSE,MIT`,
+			wantContains: []string{
+				"| pkg/a ",
+				"| pkg/b ",
+			},
+			wantAbsent: []string{
+				"| pkg/a |\n| pkg/a ",
+			},
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Cleanup(resetGlobals)
 
-			docPath, _ := setupBefore(t, tt.docContent, csvContent, docHeader, limL, limR, tt.skip)
+			csv := csvContent
+			if tt.csvContent != "" {
+				csv = tt.csvContent
+			}
+
+			docPath, _ := setupBefore(t, tt.docContent, csv, docHeader, limL, limR, tt.skip)
 
 			if tt.index != 0 {
 				index = tt.index
