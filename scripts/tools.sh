@@ -110,7 +110,7 @@ EOF
 "cov")
   go tool cover -func="tmp/coverage.out" -o tmp/coverage.in
   goforma badge \
-    --document=README.md \
+    --document-path=README.md \
     --id=coverage-badge-do-not-edit \
     coverage \
     --cov-file-path=tmp/coverage.in \

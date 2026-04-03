@@ -1,17 +1,16 @@
-//nolint:gochecknoglobals
-package coi
+package tol
 
 import (
 	"github.com/urfave/cli/v2"
 )
 
 // App main application.
-var App = cli.Command{ //nolint:exhaustruct
-	Name:         "coi",
+var App = cli.Command{ //nolint:gochecknoglobals,exhaustruct
+	Name:         "tol",
 	Aliases:      nil,
 	Usage:        "",
 	UsageText:    "",
-	Description:  "Command output injector.",
+	Description:  "Table of licences generator",
 	ArgsUsage:    "",
 	Category:     "",
 	BashComplete: nil,
@@ -21,8 +20,13 @@ var App = cli.Command{ //nolint:exhaustruct
 	OnUsageError: nil,
 	Flags: []cli.Flag{
 		&cli.StringFlag{ //nolint:exhaustruct
+			Name:     "csv-path",
+			Usage:    "input csv file (go-licenses output)",
+			Required: true,
+		},
+		&cli.StringFlag{ //nolint:exhaustruct
 			Name:     "document-path",
-			Usage:    "markdown file path to be updated",
+			Usage:    "markdown document file path to be updated",
 			Required: true,
 		},
 		&cli.StringFlag{ //nolint:exhaustruct
@@ -40,31 +44,15 @@ var App = cli.Command{ //nolint:exhaustruct
 			Usage: "string to use as a lookup limiter - empty will use end of file as a limit",
 			Value: "##",
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
-			Name:  "shell-name",
-			Usage: "shell name to use in the output",
-			Value: "bash",
-		},
-		&cli.StringFlag{ //nolint:exhaustruct
-			Name:  "shell-prompt",
-			Usage: "shell prompt prefix to use in the output",
-			Value: "$",
-		},
-		&cli.StringFlag{ //nolint:exhaustruct
-			Name:  "command",
-			Usage: "command to execute (command execution is skipped if --output is also provided)",
-			Value: "",
-		},
-		&cli.StringFlag{ //nolint:exhaustruct
-			Name:  "output",
-			Usage: "output to inject",
-			Value: "",
-		},
 		&cli.IntFlag{ //nolint:exhaustruct
 			Name: "index",
 			Usage: `index of a section to be used as a placeholder (useful if limiters refer to more than one section,
 0 = replace all)`,
 			Value: 0,
+		},
+		&cli.StringSliceFlag{ //nolint:exhaustruct
+			Name:  "skip",
+			Usage: "packages to skip",
 		},
 	},
 	Subcommands: []*cli.Command{},

@@ -18,7 +18,7 @@ func newContext(t *testing.T, flags map[string]string) *cli.Context {
 
 	app := cli.NewApp()
 	app.Flags = []cli.Flag{
-		&cli.StringFlag{Name: "document"},
+		&cli.StringFlag{Name: "document-path"},
 		&cli.StringFlag{Name: "header"},
 		&cli.StringFlag{Name: "limiter-left"},
 		&cli.StringFlag{Name: "limiter-right"},
@@ -62,7 +62,7 @@ func writeTempFile(t *testing.T, content string) string {
 
 // resetGlobals resets all package-level variables that before/action mutate.
 func resetGlobals() {
-	document = ""
+	documentPath = ""
 	header = ""
 	limiterL = ""
 	limiterR = ""
@@ -183,9 +183,9 @@ func TestBefore(t *testing.T) {
 			flags := tt.flags
 
 			if errors.Is(tt.wantErr, errFileRead) {
-				flags["document"] = filepath.Join(t.TempDir(), "nonexistent.md")
+				flags["document-path"] = filepath.Join(t.TempDir(), "nonexistent.md")
 			} else {
-				flags["document"] = writeTempFile(t, tt.content)
+				flags["document-path"] = writeTempFile(t, tt.content)
 			}
 
 			require.ErrorIs(t, before(newContext(t, flags)), tt.wantErr)
@@ -199,7 +199,7 @@ func TestBefore(t *testing.T) {
 			}
 
 			if tt.checkGlobals {
-				assert.NotEmpty(t, document)
+				assert.NotEmpty(t, documentPath)
 				assert.NotEmpty(t, header)
 				assert.NotNil(t, rexp)
 				assert.NotNil(t, body)
@@ -223,7 +223,7 @@ func setupAction(
 
 	require.NoError(t,
 		before(newContext(t, map[string]string{
-			"document":      docPath,
+			"document-path": docPath,
 			"header":        "Usage",
 			"limiter-left":  "#",
 			"limiter-right": "#",
@@ -231,7 +231,7 @@ func setupAction(
 		"before() setup failed",
 	)
 
-	actionFlags["document"] = docPath
+	actionFlags["document-path"] = docPath
 
 	return docPath, newContext(t, actionFlags)
 }

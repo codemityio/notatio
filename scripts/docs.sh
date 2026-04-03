@@ -7,6 +7,8 @@ if [ "${DEBUG}" = "true" ]; then
   set -x
 fi
 
+mkdir -p tmp var
+
 case "$1" in
 
 "uml")
@@ -74,8 +76,8 @@ case "$1" in
     if [ -f "${path}" ]; then
       make -C "$(dirname "${path}")" docs
     fi
-    notatio coi --command="${BASE_NAME} ${target} --help" --document="cmd/${target}/README.md" --header="Manual" --limiter-left="##" --limiter-right="## " --index=1
-    notatio toc --document="cmd/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## Summary" --index=1 \
+    notatio coi --command="${BASE_NAME} ${target} --help" --document-path="cmd/${target}/README.md" --header="Manual" --limiter-left="##" --limiter-right="## " --index=1
+    notatio toc --document-path="cmd/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## Summary" --index=1 \
       int --start-from-level=1 --start-from-item=1
     docker run --rm \
       --name "${BASE_NAME}-pandoc" \
@@ -102,7 +104,7 @@ case "$1" in
     if [ -f "${path}" ]; then
       make -C "$(dirname "${path}")" docs
     fi
-    notatio toc --document="pkg/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## " --index=1 \
+    notatio toc --document-path="pkg/${target}/README.md" --header="Table of contents" --limiter-left="##" --limiter-right="## " --index=1 \
       int --start-from-level=1 --start-from-item=1
     docker run --rm \
       -v "${PWD}:${PWD}" \
@@ -149,19 +151,35 @@ case "$1" in
   for target in ${packages//,/ }; do
     paths+=" --path=cmd/${target}/README.md"
   done
-  notatio toc --document=README.md --header="Subcommands" --limiter-left="###" --limiter-right="###" --index=1 \
+  notatio toc --document-path=README.md --header="Subcommands" --limiter-left="###" --limiter-right="###" --index=1 \
     ext --summary-header="Summary" --summary-limiter-left="##" --summary-limiter-right="##" ${paths}
   packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
   paths=
   for target in ${packages//,/ }; do
     paths+=" --path=pkg/${target}/README.md"
   done
-  notatio toc --document=README.md --header="Packages" --limiter-left="##" --limiter-right="## " --index=1 \
+  notatio toc --document-path=README.md --header="Packages" --limiter-left="##" --limiter-right="## " --index=1 \
     ext --summary-header="Summary" --summary-limiter-left="##" --summary-limiter-right="##" ${paths}
   # command
-  notatio coi --command="${BASE_NAME} --help" --document=README.md --header=Manual --limiter-left=### --limiter-right="### " --index=1
+  notatio coi --command="${BASE_NAME} --help" --document-path=README.md --header=Manual --limiter-left=### --limiter-right="### " --index=1
+  # deps
+  goforma code dep \
+    --path "./..." \
+    --workdir "${PWD}" \
+    --exclude-standard \
+    --exclude-vendor \
+    --owned "${GOPRIVATE}" \
+    >"docs/depgraph.dot"
+  docker run --rm \
+    --name "${BASE_NAME}-notatio-graphviz" \
+    -v "${PWD}:${PWD}" \
+    -w "${PWD}" \
+    "${VENDOR}"/notatio:latest graphviz --input-path="docs/depgraph.dot" --output-format=svg
+  # licenses
+  go-licenses report ./... > tmp/licenses.csv
+  notatio tol --document-path=README.md --csv-path=tmp/licenses.csv --skip="github.com/${VENDOR}/${BASE_NAME}" --header="Licenses" --limiter-right="## License" --index=1
   # table of contents
-  notatio toc --document=README.md --header="Table of contents" --limiter-right="## Summary" --index=1 \
+  notatio toc --document-path=README.md --header="Table of contents" --limiter-right="## Summary" --index=1 \
     int --start-from-level=1 --start-from-item=1
   docker run --rm \
     --name "${BASE_NAME}-pandoc" \

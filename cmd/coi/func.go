@@ -12,7 +12,7 @@ import (
 )
 
 func before(ctx *cli.Context) error {
-	document = ctx.String("document")
+	documentPath = ctx.String("document-path")
 	header = ctx.String("header")
 	limiterL = ctx.String("limiter-left")
 	limiterR = ctx.String("limiter-right")
@@ -20,9 +20,9 @@ func before(ctx *cli.Context) error {
 
 	var err error
 
-	body, err = os.ReadFile(document)
+	body, err = os.ReadFile(documentPath)
 	if err != nil {
-		return fmt.Errorf("%w: %s: %w", errFileRead, document, err)
+		return fmt.Errorf("%w: %s: %w", errFileRead, documentPath, err)
 	}
 
 	if limiterR == "" {
@@ -103,8 +103,8 @@ func action(ctx *cli.Context) error {
 		return match // leave this occurrence unchanged
 	})
 
-	if e := os.WriteFile(document, []byte(replaced), permsWrite); e != nil {
-		return fmt.Errorf("%w: `%s`: %w", errFileWrite, document, e)
+	if e := os.WriteFile(documentPath, []byte(replaced), permsWrite); e != nil {
+		return fmt.Errorf("%w: `%s`: %w", errFileWrite, documentPath, e)
 	}
 
 	return nil

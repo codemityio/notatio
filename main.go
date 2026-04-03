@@ -9,6 +9,7 @@ import (
 	"github.com/codemityio/notatio/cmd/mermaid"
 	"github.com/codemityio/notatio/cmd/plantuml"
 	"github.com/codemityio/notatio/cmd/toc"
+	"github.com/codemityio/notatio/cmd/tol"
 	"github.com/codemityio/notatio/internal/app"
 	"github.com/urfave/cli/v2"
 )
@@ -32,6 +33,7 @@ func main() {
 		&mermaid.App,
 		&plantuml.App,
 		&toc.App,
+		&tol.App,
 	}
 
 	if e := application.Run(os.Args); e != nil {
