@@ -8,7 +8,7 @@
 
 ## Summary
 
-A tool to convert `dot`/`gv` files to `svg`/`png` images.
+A CLI tool that wraps <https://gitlab.com/graphviz/graphviz> to convert `dot`/`gv` files to `svg`/`png` images.
 
 ## Manual
 

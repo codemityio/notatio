@@ -8,7 +8,7 @@
 
 ## Summary
 
-A tool to convert `mmd` files to `svg`/`png` images.
+A CLI tool that wraps <https://github.com/mermaid-js/mermaid-cli> to convert `mmd` files to `svg`/`png` images.
 
 ## Manual
 
