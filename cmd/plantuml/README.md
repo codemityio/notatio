@@ -8,7 +8,7 @@
 
 ## Summary
 
-A tool to convert `puml` files to `svg`/`png` images.
+A CLI tool that wraps <https://github.com/plantuml/plantuml> to convert `puml` files to `svg`/`png` images.
 
 ## Manual
 
