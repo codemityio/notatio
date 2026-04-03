@@ -96,7 +96,7 @@ $ docker run codemityio/notatio
 ## Third party software
 
 The **Docker** image is based on <https://github.com/codemityio/dbi> which includes the following third-party
-components:
+components:.
 
 - **PlantUML** (<https://plantuml.com>) — licensed under GPL v3
   <https://github.com/plantuml/plantuml/blob/master/license.txt> - no modifications made.
