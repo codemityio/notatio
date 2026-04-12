@@ -54,7 +54,7 @@ case "$1" in
   ;;
 
 "cleanup")
-  find . -iname '*_mock.go' -exec rm {} \;
+  find . -iname '*_mock_test.go' -exec rm {} \;
   find . -iname '*.so' -exec rm {} \;
   git clean -dXf pkg internal cmd
   rm -Rf tmp var bin
