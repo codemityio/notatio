@@ -13,7 +13,7 @@ case "$1" in
 
 "uml")
   if [ -z "${PACKAGES}" ]; then
-    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
     targets=$(auxilium select --label="Choose package to generate documents for" --select-name-label="Target package" --list="${packages}")
     if [[ ${targets} == "" ]]; then exit 0; fi
   else
@@ -39,7 +39,7 @@ case "$1" in
 
 "depgraph")
   if [ -z "${PACKAGES}" ]; then
-    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
     targets=$(auxilium select --label="Choose package to generate documents for" --select-name-label="Target package" --list="${packages}")
     if [[ ${targets} == "" ]]; then exit 0; fi
   else
@@ -51,6 +51,7 @@ case "$1" in
       --path "./pkg/${target}/..." \
       --workdir "${PWD}" \
       --exclude-standard \
+      --exclude-internal \
       --exclude-vendor \
       --owned "${GOPRIVATE}" \
       >"pkg/${target}/depgraph.dot"
@@ -64,7 +65,7 @@ case "$1" in
 
 "cmd")
   if [ -z "${PACKAGES}" ]; then
-    packages=$(find "cmd" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+    packages=$(find "cmd" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
     targets=$(auxilium select --label="Choose package to generate documents for" --select-name-label="Target package" --list="${packages}")
     if [[ ${targets} == "" ]]; then exit 0; fi
   else
@@ -92,7 +93,7 @@ case "$1" in
 
 "pkg")
   if [ -z "${PACKAGES}" ]; then
-    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
     targets=$(auxilium select --label="Choose package to generate documents for" --select-name-label="Target package" --list="${packages}")
     if [[ ${targets} == "" ]]; then exit 0; fi
   else
@@ -118,7 +119,7 @@ case "$1" in
 
 "render")
   if [ -z "${PACKAGES}" ]; then
-    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+    packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
     targets=$(auxilium select --label="Choose package to generate documents for" --select-name-label="Target package" --list="${packages}")
     if [[ ${targets} == "" ]]; then exit 0; fi
   else
@@ -146,14 +147,14 @@ case "$1" in
 
 "main")
   # summaries
-  packages=$(find "cmd" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+  packages=$(find "cmd" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
   paths=
   for target in ${packages//,/ }; do
     paths+=" --path=cmd/${target}/README.md"
   done
   notatio toc --document-path=README.md --header="Subcommands" --limiter-left="###" --limiter-right="###" --index=1 \
     ext --summary-header="Summary" --summary-limiter-left="##" --summary-limiter-right="##" ${paths}
-  packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+  packages=$(find "pkg" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
   paths=
   for target in ${packages//,/ }; do
     paths+=" --path=pkg/${target}/README.md"
@@ -167,6 +168,7 @@ case "$1" in
     --path "./..." \
     --workdir "${PWD}" \
     --exclude-standard \
+    --exclude-internal \
     --exclude-vendor \
     --owned "${GOPRIVATE}" \
     >"docs/depgraph.dot"
@@ -186,7 +188,7 @@ case "$1" in
     --csv-path=tmp/licenses.csv \
     --skip="github.com/${VENDOR}/${BASE_NAME}" \
     --header="Licenses" \
-    --limiter-left="##" \
+    --limiter-left="###" \
     --limiter-right="## License" \
     --index=1
   # table of contents
