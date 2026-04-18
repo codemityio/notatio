@@ -22,7 +22,7 @@ case "$1" in
   ;;
 
 "cmd")
-  docker run --rm \
+  docker run --rm ${FLAGS} \
     --name "${BASE_NAME}-cmd" \
     -e DEBUG \
     -e GOBIN="${PWD}/bin" \
@@ -163,8 +163,7 @@ EOF
 
 "go")
   go generate -skip=mockgen -v ./...
-  go build \
-    -ldflags "\
+  go build -ldflags "\
 -X 'main.name=${BASE_NAME}' \
 -X 'main.version=${VERSION}' \
 -X 'main.copyright=${VENDOR}' \

@@ -1,16 +1,16 @@
 # ![Notatio](logo.jpg)
 
-![coverage-badge-do-not-edit](https://img.shields.io/badge/Coverage-86%25-green.svg?longCache=true&style=flat)
+![coverage-badge-do-not-edit](https://img.shields.io/badge/Coverage-83%25-green.svg?longCache=true&style=flat)
 
 ## Table of contents
 
 - [Summary](#summary)
-- [Development](#development)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Manual](#manual)
   - [Subcommands](#subcommands)
   - [Docker](#docker)
+- [Development](#development)
 - [Packages](#packages)
 - [Third party software](#third-party-software)
 - [Dependencies](#dependencies)
@@ -22,15 +22,9 @@
 
 A tool designed to streamline working with documentation and diagrams.
 
-## Development
-
-To work with the codebase, use `make` command as the primary entry point for all project tools.
-
-Use the arrow keys `↓ ↑ → ←` to navigate the options, and press `/` to toggle search.
-
 ## Installation
 
-To install the tool use `make install` (directly from the repository clone) or use
+To install the package, run `make install` (directly from the repository clone) or use
 `go install github.com/codemityio/notatio@latest`.
 
 > Some of the tools depend on additional commands such as `dot`, `mmdc`, `java` or `chromium-browser`. If any of these
@@ -39,7 +33,7 @@ To install the tool use `make install` (directly from the repository clone) or u
 
 ## Usage
 
-Once you have the tool installed, just use the `notatio` command to get started.
+Once installed, use the `notatio` command to get started.
 
 ### Manual
 
@@ -62,6 +56,7 @@ AUTHOR:
 
 COMMANDS:
    coi       
+   fs        
    graphviz  
    mermaid   
    plantuml  
@@ -80,6 +75,7 @@ COPYRIGHT:
 ### Subcommands
 
 - [`coi`](cmd/coi/README.md) - A simple tool to generate document sections with provided command output.
+- [`fs`](cmd/fs/README.md) - A tool for scanning and analysing the file system.
 - [`graphviz`](cmd/graphviz/README.md) - A CLI tool that wraps <https://gitlab.com/graphviz/graphviz> to convert
   `dot`/`gv` files to `svg`/`png` images.
 - [`mermaid`](cmd/mermaid/README.md) - A CLI tool that wraps <https://github.com/mermaid-js/mermaid-cli> to convert
@@ -96,6 +92,14 @@ COPYRIGHT:
 ``` bash
 $ docker run codemityio/notatio
 ```
+
+## Development
+
+To work with the codebase, use `make` command as the primary entry point for all project tools.
+
+Use the arrow keys `↓ ↑ → ←` to navigate the options, and press `/` to toggle search.
+
+> Run `make cmd COMMAND="make check"` before raising a PR to ensure all checks pass in the CI environment.
 
 ## Packages
 
@@ -127,6 +131,7 @@ components.
 | github.com/russross/blackfriday/v2      | https://github.com/russross/blackfriday/blob/v2.1.0/LICENSE.txt | BSD-2-Clause |
 | github.com/urfave/cli/v2                | https://github.com/urfave/cli/blob/v2.27.7/LICENSE              | MIT          |
 | github.com/xrash/smetrics               | https://github.com/xrash/smetrics/blob/686a1a2994c1/LICENSE     | MIT          |
+| golang.org/x/sys/unix                   | https://cs.opensource.google/go/x/sys/+/v0.43.0:LICENSE         | BSD-3-Clause |
 
 ## License
 
