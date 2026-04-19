@@ -28,7 +28,7 @@ RUN go build \
 
 FROM ${VENDOR}/graph:${BASE_IMAGE_VERSION} AS final
 
-WORKDIR /opt/app/bin
+WORKDIR /opt/app
 
 ENV PATH="/opt/app/bin:${PATH}"
 

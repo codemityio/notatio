@@ -56,6 +56,7 @@ case "$1" in
       --owned "${GOPRIVATE}" \
       >"pkg/${target}/depgraph.dot"
     docker run --rm \
+      --platform linux/amd64 \
       --name "${BASE_NAME}-notatio-graphviz" \
       -v "${PWD}:${PWD}" \
       -w "${PWD}" \
@@ -138,6 +139,7 @@ case "$1" in
       -v "${PWD}:${PWD}" \
       "${VENDOR}"/notatio:latest plantuml --input-path="pkg/${target}" --output-format=svg --recursive
     docker run --rm \
+      --platform linux/amd64 \
       --name "${BASE_NAME}-notatio-graphviz" \
       -v "${PWD}:${PWD}" \
       -w "${PWD}" \
@@ -164,7 +166,7 @@ case "$1" in
   # command
   notatio coi --command="${BASE_NAME} --help" --document-path=README.md --header=Manual --limiter-left=### --limiter-right="### " --index=1
   # deps
-  goforma code dep \
+  GOOS=linux goforma code dep \
     --path "./..." \
     --workdir "${PWD}" \
     --exclude-standard \
@@ -173,24 +175,11 @@ case "$1" in
     --owned "${GOPRIVATE}" \
     >"docs/depgraph.dot"
   docker run --rm \
+    --platform linux/amd64 \
     --name "${BASE_NAME}-notatio-graphviz" \
     -v "${PWD}:${PWD}" \
     -w "${PWD}" \
     "${VENDOR}"/notatio:latest graphviz --input-path="docs/depgraph.dot" --output-format=svg
-  # licenses
-  docker run --rm \
-    --name "${BASE_NAME}-go-dev" \
-    -v "${PWD}:${PWD}" \
-    -w "${PWD}" \
-    "${VENDOR}"/golang-dev:latest go-licenses report ./... > tmp/licenses.csv
-  notatio tol \
-    --document-path=README.md \
-    --csv-path=tmp/licenses.csv \
-    --skip="github.com/${VENDOR}/${BASE_NAME}" \
-    --header="Licenses" \
-    --limiter-left="###" \
-    --limiter-right="## License" \
-    --index=1
   # table of contents
   notatio toc --document-path=README.md --header="Table of contents" --limiter-right="## Summary" --index=1 \
     int --start-from-level=1 --start-from-item=1
@@ -202,6 +191,20 @@ case "$1" in
     --wrap=auto --columns=120 \
     --from=markdown-implicit_figures \
     --to=gfm --output=README.md README.md
+  # licenses
+  docker run --rm \
+    --name "${BASE_NAME}-golang-dev" \
+    -v "${PWD}:${PWD}" \
+    -w "${PWD}" \
+    "${VENDOR}"/golang-dev:latest go-licenses report ./... > tmp/licenses.csv
+  notatio tol \
+    --document-path=README.md \
+    --csv-path=tmp/licenses.csv \
+    --skip="github.com/${VENDOR}/${BASE_NAME}" \
+    --header="Licenses" \
+    --limiter-left="###" \
+    --limiter-right="## License" \
+    --index=1
   ;;
 
 *)
