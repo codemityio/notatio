@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/codemityio/notatio/cmd/coi"
-	"github.com/codemityio/notatio/cmd/fs"
 	"github.com/codemityio/notatio/cmd/graphviz"
 	"github.com/codemityio/notatio/cmd/mermaid"
 	"github.com/codemityio/notatio/cmd/plantuml"
@@ -30,7 +29,6 @@ func main() {
 
 	application.Commands = []*cli.Command{
 		&coi.App,
-		&fs.App,
 		&graphviz.App,
 		&mermaid.App,
 		&plantuml.App,

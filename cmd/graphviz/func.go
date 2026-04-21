@@ -15,7 +15,7 @@ import (
 
 func action(ctx *cli.Context) error {
 	if e := app.CheckCommand(ctx, "dot", "dot not found"); e != nil {
-		return fmt.Errorf("%w: %w", errWrite, e)
+		return fmt.Errorf("%w: %w", errDep, e)
 	}
 
 	inputPath := ctx.String("input-path")

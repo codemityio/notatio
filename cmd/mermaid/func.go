@@ -13,11 +13,11 @@ import (
 
 func action(ctx *cli.Context) error {
 	if e := app.CheckCommand(ctx, "mmdc", "mmdc not found"); e != nil {
-		return fmt.Errorf("%w: %w", errWrite, e)
+		return fmt.Errorf("%w: %w", errDep, e)
 	}
 
 	if e := app.CheckCommand(ctx, "chromium-browser", "chromium-browser not found"); e != nil {
-		return fmt.Errorf("%w: %w", errWrite, e)
+		return fmt.Errorf("%w: %w", errDep, e)
 	}
 
 	inputPath := ctx.String("input-path")

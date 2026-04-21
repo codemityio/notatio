@@ -1,6 +1,6 @@
 # ![Notatio](logo.jpg)
 
-![coverage-badge-do-not-edit](https://img.shields.io/badge/Coverage-83%25-green.svg?longCache=true&style=flat)
+![coverage-badge-do-not-edit](https://img.shields.io/badge/Coverage-86%25-green.svg?longCache=true&style=flat)
 
 ## Table of contents
 
@@ -56,7 +56,6 @@ AUTHOR:
 
 COMMANDS:
    coi       
-   fs        
    graphviz  
    mermaid   
    plantuml  
@@ -75,7 +74,6 @@ COPYRIGHT:
 ### Subcommands
 
 - [`coi`](cmd/coi/README.md) - A simple tool to generate document sections with provided command output.
-- [`fs`](cmd/fs/README.md) - A tool for scanning and analysing the file system.
 - [`graphviz`](cmd/graphviz/README.md) - A CLI tool that wraps <https://gitlab.com/graphviz/graphviz> to convert
   `dot`/`gv` files to `svg`/`png` images.
 - [`mermaid`](cmd/mermaid/README.md) - A CLI tool that wraps <https://github.com/mermaid-js/mermaid-cli> to convert
@@ -131,7 +129,6 @@ components.
 | github.com/russross/blackfriday/v2      | https://github.com/russross/blackfriday/blob/v2.1.0/LICENSE.txt | BSD-2-Clause |
 | github.com/urfave/cli/v2                | https://github.com/urfave/cli/blob/v2.27.7/LICENSE              | MIT          |
 | github.com/xrash/smetrics               | https://github.com/xrash/smetrics/blob/686a1a2994c1/LICENSE     | MIT          |
-| golang.org/x/sys/unix                   | https://cs.opensource.google/go/x/sys/+/v0.43.0:LICENSE         | BSD-3-Clause |
 
 ## License
 
