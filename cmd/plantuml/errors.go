@@ -7,6 +7,7 @@ import (
 
 var (
 	errPkg                     = errors.New("plantuml")
+	errDep                     = fmt.Errorf("%w: unable to find dependency", errPkg)
 	errWrite                   = fmt.Errorf("%w: unable to write", errPkg)
 	errInputPath               = fmt.Errorf("%w: input path", errPkg)
 	errInputPathEmpty          = fmt.Errorf("%w: input path empty", errPkg)
