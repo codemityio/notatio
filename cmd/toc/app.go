@@ -33,12 +33,12 @@ var App = cli.Command{ //nolint:exhaustruct
 		&cli.StringFlag{ //nolint:exhaustruct
 			Name:  "limiter-left",
 			Usage: "string to use as a lookup limiter",
-			Value: "##",
+			Value: valueHashHash,
 		},
 		&cli.StringFlag{ //nolint:exhaustruct
 			Name:  "limiter-right",
 			Usage: "string to use as a lookup limiter - empty will use end of file as a limit",
-			Value: "##",
+			Value: valueHashHash,
 		},
 		&cli.IntFlag{ //nolint:exhaustruct
 			Name: "index",
@@ -85,12 +85,12 @@ var App = cli.Command{ //nolint:exhaustruct
 				&cli.StringFlag{ //nolint:exhaustruct
 					Name:  "summary-limiter-left",
 					Usage: "string to use as a summary lookup limiter",
-					Value: "##",
+					Value: valueHashHash,
 				},
 				&cli.StringFlag{ //nolint:exhaustruct
 					Name:  "summary-limiter-right",
 					Usage: "string to use as a summary lookup limiter - empty will use end of file as a limit",
-					Value: "##",
+					Value: valueHashHash,
 				},
 			},
 			Action: external,

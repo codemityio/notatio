@@ -169,9 +169,11 @@ func generateExternalTOC(
 			section = matches[1] // the captured content
 		}
 
-		list = append(list, fmt.Sprintf(
-			"- [%s](%s) - %s\n",
-			title, path, strings.TrimSpace(strings.ReplaceAll(section, "\n", " "))),
+		list = append(
+			list, fmt.Sprintf(
+				"- [%s](%s) - %s\n",
+				title, path, strings.TrimSpace(strings.ReplaceAll(section, "\n", " ")),
+			),
 		)
 	}
 

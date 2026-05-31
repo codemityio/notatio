@@ -221,7 +221,8 @@ func setupAction(
 
 	docPath := writeTempFile(t, content)
 
-	require.NoError(t,
+	require.NoError(
+		t,
 		before(newContext(t, map[string]string{
 			"document-path": docPath,
 			"header":        "Usage",

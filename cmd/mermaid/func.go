@@ -79,20 +79,13 @@ func iterate(ctx *cli.Context, path, format, puppeteerConfigJSONPath string, rec
 
 	for _, item := range items {
 		if item.IsDir() && recurse {
-			if _, e := fmt.Fprintln(
-				ctx.App.Writer,
-				path+"/"+item.Name()+" - scanning...",
-			); e != nil {
+			subPath := filepath.Join(path, item.Name())
+
+			if _, e := fmt.Fprintln(ctx.App.Writer, subPath+" - scanning..."); e != nil {
 				return fmt.Errorf("%w: %w", errWrite, e)
 			}
 
-			if e := iterate(
-				ctx,
-				path+"/"+item.Name(),
-				format,
-				puppeteerConfigJSONPath,
-				recurse,
-			); e != nil {
+			if e := iterate(ctx, subPath, format, puppeteerConfigJSONPath, recurse); e != nil {
 				return e
 			}
 		}
@@ -103,7 +96,7 @@ func iterate(ctx *cli.Context, path, format, puppeteerConfigJSONPath string, rec
 			if item.Name()[index:] == ".mmd" {
 				if e := generate(
 					ctx,
-					path+"/"+item.Name()[:index],
+					filepath.Join(path, item.Name()[:index]),
 					format,
 					puppeteerConfigJSONPath,
 				); e != nil {

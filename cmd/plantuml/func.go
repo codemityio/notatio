@@ -98,16 +98,15 @@ func iterate(
 			continue
 		}
 
-		if _, e := fmt.Fprintln(
-			ctx.App.Writer,
-			path+"/"+item.Name()+" - scanning...",
-		); e != nil {
+		subPath := filepath.Join(path, item.Name())
+
+		if _, e := fmt.Fprintln(ctx.App.Writer, subPath+" - scanning..."); e != nil {
 			return fmt.Errorf("%w: %w", errWrite, e)
 		}
 
 		if e := iterate(
 			ctx,
-			path+"/"+item.Name(),
+			subPath,
 			format,
 			plantumlJarPath,
 			plantumlLimitSize,

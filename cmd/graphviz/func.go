@@ -26,7 +26,7 @@ func action(ctx *cli.Context) error {
 		return errInputPathEmpty
 	}
 
-	if outputFormat != "png" && outputFormat != "svg" {
+	if outputFormat != valuePNG && outputFormat != valueSVG {
 		return fmt.Errorf("%w: %s", errUnsupportedOutputFormat, outputFormat)
 	}
 
