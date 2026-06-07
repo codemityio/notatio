@@ -31,7 +31,7 @@ var App = cli.Command{ //nolint:exhaustruct
 		&cli.StringFlag{ //nolint:exhaustruct
 			Name:     "output-format",
 			Usage:    "output format (svg or png)",
-			Value:    "svg",
+			Value:    valueSVG,
 			Required: false,
 		},
 		&cli.BoolFlag{ //nolint:exhaustruct
