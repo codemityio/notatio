@@ -6,7 +6,7 @@ import (
 )
 
 // App main application.
-var App = cli.Command{ //nolint:exhaustruct
+var App = cli.Command{ //nolint:exhaustruct_v5
 	Name:         "plantuml",
 	Aliases:      nil,
 	Usage:        "",
@@ -22,31 +22,31 @@ var App = cli.Command{ //nolint:exhaustruct
 	Action:       action,
 	OnUsageError: nil,
 	Flags: []cli.Flag{
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:     "input-path",
 			Usage:    "input path, either a file to be converted or a directory to be scanned",
 			Value:    ".",
 			Required: false,
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:     "output-format",
 			Usage:    "output format (svg or png)",
 			Value:    "svg",
 			Required: false,
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:     "plantuml-limit-size",
 			Usage:    "",
 			Value:    "4096",
 			Required: false,
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:     "plantuml-jar-path",
 			Usage:    "plantuml.jar file path",
 			Value:    "/usr/local/lib/plantuml.jar",
 			Required: false,
 		},
-		&cli.BoolFlag{ //nolint:exhaustruct
+		&cli.BoolFlag{ //nolint:exhaustruct_v5
 			Name:     "recursive",
 			Usage:    "enable recursive directories scan",
 			Value:    false,
