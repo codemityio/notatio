@@ -5,7 +5,7 @@ import (
 )
 
 // App main application.
-var App = cli.Command{ //nolint:gochecknoglobals,exhaustruct
+var App = cli.Command{ //nolint:gochecknoglobals,exhaustruct_v5
 	Name:         "tol",
 	Aliases:      nil,
 	Usage:        "",
@@ -19,38 +19,38 @@ var App = cli.Command{ //nolint:gochecknoglobals,exhaustruct
 	Action:       action,
 	OnUsageError: nil,
 	Flags: []cli.Flag{
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:     "csv-path",
 			Usage:    "input csv file (go-licenses output)",
 			Required: true,
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:     "document-path",
 			Usage:    "markdown document file path to be updated",
 			Required: true,
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:     "header",
 			Usage:    "header to use for document lookups and generation",
 			Required: true,
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:  "limiter-left",
 			Usage: "string to use as a lookup limiter",
 			Value: "##",
 		},
-		&cli.StringFlag{ //nolint:exhaustruct
+		&cli.StringFlag{ //nolint:exhaustruct_v5
 			Name:  "limiter-right",
 			Usage: "string to use as a lookup limiter - empty will use end of file as a limit",
 			Value: "##",
 		},
-		&cli.IntFlag{ //nolint:exhaustruct
+		&cli.IntFlag{ //nolint:exhaustruct_v5
 			Name: "index",
 			Usage: `index of a section to be used as a placeholder (useful if limiters refer to more than one section,
 0 = replace all)`,
 			Value: 0,
 		},
-		&cli.StringSliceFlag{ //nolint:exhaustruct
+		&cli.StringSliceFlag{ //nolint:exhaustruct_v5
 			Name:  "skip",
 			Usage: "packages to skip",
 		},
