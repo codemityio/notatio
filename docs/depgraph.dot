@@ -27,13 +27,13 @@ digraph DepGraph {
               "github.com/codemityio/notatio/cmd/toc" -> "github.com/urfave/cli/v2"
         "github.com/codemityio/notatio/cmd/tol" [label="github.com/codemityio/notatio/cmd/tol", color="gray58", fillcolor="gray99", penwidth=1]
               "github.com/codemityio/notatio/cmd/tol" -> "github.com/urfave/cli/v2"
-        "github.com/cpuguy83/go-md2man/v2/md2man" [label="github.com/cpuguy83/go-md2man/v2/md2man", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/cpuguy83/go-md2man/v2/md2man" [label="github.com/cpuguy83/go-md2man/v2/md2man@v2.0.7", color="gray65", fillcolor="gray83", penwidth=1]
               "github.com/cpuguy83/go-md2man/v2/md2man" -> "github.com/russross/blackfriday/v2"
-        "github.com/russross/blackfriday/v2" [label="github.com/russross/blackfriday/v2", color="gray65", fillcolor="gray83", penwidth=1]
-        "github.com/urfave/cli/v2" [label="github.com/urfave/cli/v2", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/russross/blackfriday/v2" [label="github.com/russross/blackfriday/v2@v2.1.0", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/urfave/cli/v2" [label="github.com/urfave/cli/v2@v2.27.7", color="gray65", fillcolor="gray83", penwidth=1]
               "github.com/urfave/cli/v2" -> "github.com/cpuguy83/go-md2man/v2/md2man"
               "github.com/urfave/cli/v2" -> "github.com/xrash/smetrics"
-        "github.com/xrash/smetrics" [label="github.com/xrash/smetrics", color="gray65", fillcolor="gray83", penwidth=1]
+        "github.com/xrash/smetrics" [label="github.com/xrash/smetrics@v0.0.0-20240521201337-686a1a2994c1", color="gray65", fillcolor="gray83", penwidth=1]
     }
 }
 
